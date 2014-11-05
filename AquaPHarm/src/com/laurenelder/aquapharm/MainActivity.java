@@ -1,17 +1,35 @@
 package com.laurenelder.aquapharm;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements TabListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        
+        Tab actionBarTab = actionBar.newTab();
+        actionBarTab.setText(R.string.actionbar_buildsystem).setTabListener(this);
+        actionBar.addTab(actionBarTab);
+        actionBarTab = actionBar.newTab();
+        actionBarTab.setText(R.string.actionbar_fish).setTabListener(this);
+        actionBar.addTab(actionBarTab);
+        actionBarTab = actionBar.newTab();
+        actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
+        actionBar.addTab(actionBarTab);
     }
 
 
@@ -33,4 +51,25 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
 }
