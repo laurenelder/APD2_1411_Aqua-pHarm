@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddContainerActivity"/>
+        <activity
+            android:name=".ContainerActivity"/>
+        <activity
+            android:name=".FishActivity"/>
+        <activity
+            android:name=".PlantsActivity"/>
     </application>
 
 </manifest>

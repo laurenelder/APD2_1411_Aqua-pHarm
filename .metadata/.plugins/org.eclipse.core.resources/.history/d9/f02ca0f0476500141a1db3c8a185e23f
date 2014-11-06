@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Aqua pHarm</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_add">Add Container</string>
+    <string name="action_edit">Edit Container</string>
+    <string name="action_delete">Delete Container</string>
+    <string name="action_save">Save Container</string>
+    <string name="action_about">About this Application</string>
+    <string name="actionbar_buildsystem">Build System</string>
+    <string name="actionbar_fish">Fish</string>
+    <string name="actionbar_plants">Plants</string>
+    <string name="water_rate_label">Water Pump Flow Rate (GPH):</string>
+    <string name="water_capacity_label">Estimated Total Water Capacity:</string>
+    <string name="bed_rate_label">Estimated Grow Bed Cycle Rate:</string>
+
+</resources>
