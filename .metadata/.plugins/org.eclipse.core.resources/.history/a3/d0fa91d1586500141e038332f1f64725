@@ -15,9 +15,5 @@
     <string name="water_rate_label">Water Pump Flow Rate (GPH):</string>
     <string name="water_capacity_label">Estimated Total Water Capacity:</string>
     <string name="bed_rate_label">Estimated Grow Bed Cycle Rate:</string>
-    <string name="container_type">Container Type:</string>
-    <string name="container_length">Length (inches):</string>
-    <string name="container_width">Width (inches):</string>
-    <string name="container_height">Height (inches):</string>
 
 </resources>

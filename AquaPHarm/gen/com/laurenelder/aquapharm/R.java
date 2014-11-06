@@ -29,18 +29,22 @@ public final class R {
         public static final int ic_launcher=0x7f020004;
     }
     public static final class id {
-        public static final int action_item_one=0x7f08000a;
-        public static final int action_item_two=0x7f08000b;
-        public static final int addContainerFrag=0x7f080005;
-        public static final int bedOutput=0x7f080003;
-        public static final int container=0x7f080004;
-        public static final int containerFrag=0x7f080006;
-        public static final int fishFrag=0x7f080007;
-        public static final int list=0x7f080000;
-        public static final int mainFrag=0x7f080008;
-        public static final int plantsFrag=0x7f080009;
-        public static final int waterInput=0x7f080001;
-        public static final int waterOutput=0x7f080002;
+        public static final int action_item_one=0x7f08000e;
+        public static final int action_item_two=0x7f08000f;
+        public static final int addContainerFrag=0x7f080009;
+        public static final int bedOutput=0x7f080007;
+        public static final int container=0x7f080008;
+        public static final int containerFrag=0x7f08000a;
+        public static final int containerHeight=0x7f080003;
+        public static final int containerLength=0x7f080001;
+        public static final int containerSpinner=0x7f080000;
+        public static final int containerWidth=0x7f080002;
+        public static final int fishFrag=0x7f08000b;
+        public static final int list=0x7f080004;
+        public static final int mainFrag=0x7f08000c;
+        public static final int plantsFrag=0x7f08000d;
+        public static final int waterInput=0x7f080005;
+        public static final int waterOutput=0x7f080006;
     }
     public static final class layout {
         public static final int activity_addcontainer=0x7f030000;
@@ -69,6 +73,10 @@ public final class R {
         public static final int actionbar_plants=0x7f05000a;
         public static final int app_name=0x7f050000;
         public static final int bed_rate_label=0x7f05000d;
+        public static final int container_height=0x7f050011;
+        public static final int container_length=0x7f05000f;
+        public static final int container_type=0x7f05000e;
+        public static final int container_width=0x7f050010;
         public static final int hello_world=0x7f050001;
         public static final int water_capacity_label=0x7f05000c;
         public static final int water_rate_label=0x7f05000b;
