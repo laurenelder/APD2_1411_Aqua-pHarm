@@ -32,6 +32,10 @@ public class AddContainerActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		int id = item.getItemId();
+        if (id == R.id.action_item_two) {
+        	return true;
+        }
 		return super.onOptionsItemSelected(item);
 	}
 	

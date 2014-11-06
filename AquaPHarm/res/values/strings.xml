@@ -19,5 +19,6 @@
     <string name="container_length">Length (inches):</string>
     <string name="container_width">Width (inches):</string>
     <string name="container_height">Height (inches):</string>
+    <string name="container_capacity">Total Capacity:</string>
 
 </resources>
