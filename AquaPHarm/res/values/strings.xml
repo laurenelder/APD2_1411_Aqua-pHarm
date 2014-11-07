@@ -20,5 +20,16 @@
     <string name="container_width">Width (inches):</string>
     <string name="container_height">Height (inches):</string>
     <string name="container_capacity">Total Capacity:</string>
+    <string name="fish_image_description">Fish Image</string>
+    <string name="spring_label">Spring:</string>
+    <string name="summer_label">Summer:</string>
+    <string name="fall_label">Fall:</string>
+    <string name="winter_label">Winter:</string>
+    <string name="overall_label">Overall:</string>
+    <string name="spring_icon">Spring Icon</string>
+    <string name="summer_icon">Summer Icon</string>
+    <string name="fall_icon">Fall Icon</string>
+    <string name="winter_icon">Winter Icon</string>
+    <string name="overall_icon">Overall Icon</string>
 
 </resources>

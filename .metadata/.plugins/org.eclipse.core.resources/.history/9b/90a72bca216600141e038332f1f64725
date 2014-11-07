@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ImageView 
+        android:id="@+id/fishImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:contentDescription="@string/fish_image_description"
+        android:src="@drawable/ic_launcher"
+        android:layout_gravity="center" />
+
+    <Spinner
+        android:id="@+id/fishSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/spring_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="left" />
+        
+        <ImageView
+            android:id="@+id/fishSpringColor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/yellow"
+            android:contentDescription="@string/spring_icon"
+            android:layout_gravity="right" />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/summer_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="left" />
+        
+        <ImageView
+            android:id="@+id/fishSummerColor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/green"
+            android:contentDescription="@string/summer_icon"
+            android:layout_gravity="right" />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fall_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="left" />
+        
+        <ImageView
+            android:id="@+id/fishFallColor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/yellow"
+            android:contentDescription="@string/fall_icon"
+            android:layout_gravity="right" />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/winter_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="left" />
+        
+        <ImageView
+            android:id="@+id/fishWinterColor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/red"
+            android:contentDescription="@string/winter_icon"
+            android:layout_gravity="right" />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/overall_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="left" />
+        
+        <ImageView
+            android:id="@+id/fishOverallColor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/yellow"
+            android:contentDescription="@string/overall_icon"
+            android:layout_gravity="right" />
+        
+    </LinearLayout>
+
+</LinearLayout>

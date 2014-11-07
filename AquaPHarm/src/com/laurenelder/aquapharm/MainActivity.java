@@ -19,11 +19,14 @@ public class MainActivity extends Activity implements TabListener {
 
 
 	Context context;
+	boolean switched;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
+        
+        switched = false;
         
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -37,6 +40,8 @@ public class MainActivity extends Activity implements TabListener {
         actionBarTab = actionBar.newTab();
         actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
         actionBar.addTab(actionBarTab);
+        
+        actionBar.setSelectedNavigationItem(0);
         
 //        TabHost tHost = (TabHost) getParent().findViewById(android.R.id.tabhost);
 //        tHost.setCurrentTab(0);
@@ -81,22 +86,21 @@ public class MainActivity extends Activity implements TabListener {
 		// TODO Auto-generated method stub
 		int tabIndex = tab.getPosition();
 		if (tabIndex == 0) {
-			
+			switched = true;
 		}
 		if (tabIndex == 1) {
-			Intent fishIntent = new Intent(context, FishActivity.class);
-			startActivity(fishIntent);
+			switched = true;
+			if (switched == true) {
+				Intent fishIntent = new Intent(context, FishActivity.class);
+				startActivity(fishIntent);
+			}
 		}
 		if (tabIndex == 2) {
-			Intent plantsIntent = new Intent(context, PlantsActivity.class);
-			startActivity(plantsIntent);
+			if (switched == true) {
+				Intent plantsIntent = new Intent(context, PlantsActivity.class);
+				startActivity(plantsIntent);
+			}
 		}
-	}
-	
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -108,6 +112,12 @@ public class MainActivity extends Activity implements TabListener {
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		
 	}
