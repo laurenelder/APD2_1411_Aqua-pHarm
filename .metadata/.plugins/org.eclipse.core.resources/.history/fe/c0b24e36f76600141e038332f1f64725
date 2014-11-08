@@ -72,7 +72,7 @@ public class PlantsFragment extends Fragment {
 		plants.add("Tomatoes");
 		plants.add("Watermelon");
 
-		spinnerAdapter.notifyDataSetChanged();
+		
 		
 		return plantsView;
 	}

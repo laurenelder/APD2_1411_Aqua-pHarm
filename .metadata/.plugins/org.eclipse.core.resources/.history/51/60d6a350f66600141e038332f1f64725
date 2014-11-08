@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Spinner;
 
 public class PlantsFragment extends Fragment {
 	
-	Context context;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,14 +21,11 @@ public class PlantsFragment extends Fragment {
 		
 		View plantsView = inflater.inflate(R.layout.activity_plants, container);
 		
-		context = getActivity();
-		
 		Spinner plantsSpinner = (Spinner) plantsView.findViewById(R.id.plantSpinner);
 		List<String> plants = new ArrayList<String>();
-		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, plants);
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		plantsSpinner.setAdapter(spinnerAdapter);
 		
 		plants.add("Angel Face");
 		plants.add("Azaleas");
@@ -72,7 +67,7 @@ public class PlantsFragment extends Fragment {
 		plants.add("Tomatoes");
 		plants.add("Watermelon");
 
-		spinnerAdapter.notifyDataSetChanged();
+		
 		
 		return plantsView;
 	}

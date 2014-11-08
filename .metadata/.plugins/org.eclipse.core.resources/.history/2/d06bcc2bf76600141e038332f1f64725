@@ -30,7 +30,6 @@ public class PlantsFragment extends Fragment {
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
 				android.R.layout.simple_spinner_item, plants);
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		plantsSpinner.setAdapter(spinnerAdapter);
 		
 		plants.add("Angel Face");
 		plants.add("Azaleas");
@@ -72,7 +71,7 @@ public class PlantsFragment extends Fragment {
 		plants.add("Tomatoes");
 		plants.add("Watermelon");
 
-		spinnerAdapter.notifyDataSetChanged();
+		
 		
 		return plantsView;
 	}

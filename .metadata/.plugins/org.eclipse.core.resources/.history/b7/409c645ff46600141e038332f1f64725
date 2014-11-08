@@ -39,8 +39,6 @@ public class PlantsActivity extends Activity implements TabListener {
         actionBar.addTab(actionBarTab);
         
         actionBar.setSelectedNavigationItem(2);
-        
-        
 	}
 
 	@Override
