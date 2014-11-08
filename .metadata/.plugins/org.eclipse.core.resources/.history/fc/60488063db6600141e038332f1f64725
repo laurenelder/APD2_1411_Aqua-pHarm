@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements TabListener {
 			switched = true;
 		}
 		if (tabIndex == 1) {
-//			switched = true;
+			switched = true;
 			if (switched == true) {
 				Intent fishIntent = new Intent(context, FishActivity.class);
 				startActivity(fishIntent);

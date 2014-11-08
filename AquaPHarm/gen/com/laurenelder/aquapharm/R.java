@@ -36,13 +36,13 @@ public final class R {
         public static final int ic_launcher=0x7f020006;
     }
     public static final class id {
-        public static final int action_item_one=0x7f09001a;
-        public static final int action_item_two=0x7f09001b;
-        public static final int addContainerFrag=0x7f090015;
-        public static final int bedOutput=0x7f090013;
-        public static final int container=0x7f090014;
+        public static final int action_item_one=0x7f090023;
+        public static final int action_item_two=0x7f090024;
+        public static final int addContainerFrag=0x7f09001e;
+        public static final int bedOutput=0x7f090014;
+        public static final int container=0x7f09001d;
         public static final int containerCapacityOutput=0x7f090008;
-        public static final int containerFrag=0x7f090016;
+        public static final int containerFrag=0x7f09001f;
         public static final int containerHeight=0x7f090003;
         public static final int containerHeightOutput=0x7f090007;
         public static final int containerLength=0x7f090001;
@@ -51,19 +51,28 @@ public final class R {
         public static final int containerWidth=0x7f090002;
         public static final int containerWidthOutput=0x7f090006;
         public static final int containerlengthOutput=0x7f090005;
+        public static final int fishEatable=0x7f090010;
         public static final int fishFallColor=0x7f09000d;
-        public static final int fishFrag=0x7f090017;
+        public static final int fishFrag=0x7f090020;
         public static final int fishImage=0x7f090009;
         public static final int fishOverallColor=0x7f09000f;
         public static final int fishSpinner=0x7f09000a;
         public static final int fishSpringColor=0x7f09000b;
         public static final int fishSummerColor=0x7f09000c;
         public static final int fishWinterColor=0x7f09000e;
-        public static final int list=0x7f090010;
-        public static final int mainFrag=0x7f090018;
-        public static final int plantsFrag=0x7f090019;
-        public static final int waterInput=0x7f090011;
-        public static final int waterOutput=0x7f090012;
+        public static final int list=0x7f090011;
+        public static final int mainFrag=0x7f090021;
+        public static final int plantEatable=0x7f09001c;
+        public static final int plantFallColor=0x7f090019;
+        public static final int plantImage=0x7f090015;
+        public static final int plantOverallColor=0x7f09001b;
+        public static final int plantSpinner=0x7f090016;
+        public static final int plantSpringColor=0x7f090017;
+        public static final int plantSummerColor=0x7f090018;
+        public static final int plantWinterColor=0x7f09001a;
+        public static final int plantsFrag=0x7f090022;
+        public static final int waterInput=0x7f090012;
+        public static final int waterOutput=0x7f090013;
     }
     public static final class layout {
         public static final int activity_addcontainer=0x7f030000;
@@ -97,20 +106,21 @@ public final class R {
         public static final int container_length=0x7f06000f;
         public static final int container_type=0x7f06000e;
         public static final int container_width=0x7f060010;
-        public static final int fall_icon=0x7f06001b;
-        public static final int fall_label=0x7f060016;
+        public static final int fall_icon=0x7f06001c;
+        public static final int fall_label=0x7f060017;
         public static final int fish_image_description=0x7f060013;
         public static final int hello_world=0x7f060001;
-        public static final int overall_icon=0x7f06001d;
-        public static final int overall_label=0x7f060018;
-        public static final int spring_icon=0x7f060019;
-        public static final int spring_label=0x7f060014;
-        public static final int summer_icon=0x7f06001a;
-        public static final int summer_label=0x7f060015;
+        public static final int overall_icon=0x7f06001e;
+        public static final int overall_label=0x7f060019;
+        public static final int plant_image_description=0x7f060014;
+        public static final int spring_icon=0x7f06001a;
+        public static final int spring_label=0x7f060015;
+        public static final int summer_icon=0x7f06001b;
+        public static final int summer_label=0x7f060016;
         public static final int water_capacity_label=0x7f06000c;
         public static final int water_rate_label=0x7f06000b;
-        public static final int winter_icon=0x7f06001c;
-        public static final int winter_label=0x7f060017;
+        public static final int winter_icon=0x7f06001d;
+        public static final int winter_label=0x7f060018;
     }
     public static final class style {
         /** 

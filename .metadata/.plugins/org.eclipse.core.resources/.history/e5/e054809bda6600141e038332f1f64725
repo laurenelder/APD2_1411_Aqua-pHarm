@@ -159,12 +159,12 @@
     </LinearLayout>
     
     <TextView
-        android:id="@+id/fishEatable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Uneatable"
+        android:text="Eatable"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center" />
 
 </LinearLayout>
+

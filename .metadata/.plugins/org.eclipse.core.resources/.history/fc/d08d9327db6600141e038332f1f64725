@@ -26,7 +26,6 @@ public class MainActivity extends Activity implements TabListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
         
-        context = this;
         switched = false;
         
         ActionBar actionBar = getActionBar();
@@ -47,7 +46,7 @@ public class MainActivity extends Activity implements TabListener {
 //        TabHost tHost = (TabHost) getParent().findViewById(android.R.id.tabhost);
 //        tHost.setCurrentTab(0);
         
-        
+        context = this;
     }
 
 
@@ -90,7 +89,7 @@ public class MainActivity extends Activity implements TabListener {
 			switched = true;
 		}
 		if (tabIndex == 1) {
-//			switched = true;
+			switched = true;
 			if (switched == true) {
 				Intent fishIntent = new Intent(context, FishActivity.class);
 				startActivity(fishIntent);
