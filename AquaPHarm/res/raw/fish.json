@@ -1,0 +1,88 @@
+{ fish: [
+	{
+		name: "Blue Gill",
+		mintemp: "65",
+		maxtemp: "72",
+		image: "bluegill.jpg"
+	},
+	{
+		name: "Catfish",
+		mintemp: "75",
+		maxtemp: "85",
+		image: "catfish.jpg"
+	},
+	{
+		name: "Cichlids",
+		mintemp: "72",
+		maxtemp: "82",
+		image: "cichlids.jpg"
+	},
+	{
+		name: "Gold Fish",
+		mintemp: "68",
+		maxtemp: "75",
+		image: "goldfish.jpg"
+	},
+		{
+		name: "Koi",
+		mintemp: "60",
+		maxtemp: "75",
+		image: "koi.jpg"
+	},
+	{
+		name: "Lake Trout",
+		mintemp: "45",
+		maxtemp: "55",
+		image: "laketrout.jpg"
+	},
+		{
+		name: "Land Locked Salmon",
+		mintemp: "53",
+		maxtemp: "57",
+		image: "landlocksalmon.jpg"
+	},
+	{
+		name: "Large Mouth Bass",
+		mintemp: "60",
+		maxtemp: "75",
+		image: "largemouthbass.jpg"
+	},
+	{
+		name: "Minnow",
+		mintemp: "65",
+		maxtemp: "70",
+		image: "minnow.jpg"
+	},
+	{
+		name: "Rainbow Trout",
+		mintemp: "55",
+		maxtemp: "70",
+		image: "rainbowtrout.jpg"
+	},
+	{
+		name: "Small Mouth Bass",
+		mintemp: "65",
+		maxtemp: "75",
+		image: "smallmouthbass.jpg"
+	},
+	{
+		name: "Tilapia",
+		mintemp: "65",
+		maxtemp: "72",
+		image: "tilapia.jpg"
+	},
+
+{
+		name: "White Perch",
+		mintemp: "52",
+		maxtemp: "60",
+		image: "whiteperch.jpg"
+	},
+	{
+		name: "Yellow Perch",
+		mintemp: "66",
+		maxtemp: "75",
+		image: "bluegill.jpg"
+	},
+
+]}

@@ -1,0 +1,236 @@
+{plants: [
+	{
+		name: "Angel Face",
+		mintemp: "65",
+		maxtemp: "75",
+		image:"angelface.jpg"
+	},
+	{
+		name: "Azalea",
+		mintemp: "60",
+		maxtemp: "85",
+		image:"azaleas.jpg"
+	},
+	{
+		name: "Bell Pepper",
+		mintemp: "65",
+		maxtemp: "80",
+		image:"bellpeppers.jpg"
+	},
+	{
+		name: "Bird of Paradise",
+		mintemp: "60",
+		maxtemp: "80",
+		image:"birdofparadise.jpg"
+	},
+	{
+		name: "Blackberry",
+		mintemp: "20",
+		maxtemp: "60",
+		image:"blackberries.jpg"
+	},
+	{
+		name: "Blueberry",
+		mintemp: "40",
+		maxtemp: "70",
+		image:"blueberries.jpg"
+	},
+	{
+		name: "Broccoli",
+		mintemp: "60",
+		maxtemp: "80",
+		image:"broccoli.jpg"
+	},
+	{
+		name: "Brussel Sprouts",
+		mintemp: "50",
+		maxtemp: "70",
+		image:"brusselssprouts.jpg"
+	},
+	{
+		name: "Cabbage",
+		mintemp: "50",
+		maxtemp: "70",
+		image:"cabbage.jpg"
+	},
+	{
+		name: "Carnation",
+		mintemp: "50",
+		maxtemp: "75",
+		image:"carnations.jpg"
+	},
+	{
+		name: "Celery",
+		mintemp: "50",
+		maxtemp: "75",
+		image:"celery.jpg"
+	},
+	{
+		name: "Cherries",
+		mintemp: "40",
+		maxtemp: "70",
+		image:"cherries.jpg"
+	},
+	{
+		name: "Chive",
+		mintemp: "40",
+		maxtemp: "85",
+		image:"chives.jpg"
+	},
+	{
+		name: "Collard Green",
+		mintemp: "35",
+		maxtemp: "70",
+		image:"collardgreens.jpg"
+	},
+	{
+		name: "Cucumber",
+		mintemp: "60",
+		maxtemp: "95",
+		image:"cucumbers.jpg"
+	},
+	{
+		name: "Daffodil",
+		mintemp: "50",
+		maxtemp: "75",
+		image:"daffodils.jpg"
+	},
+	{
+		name: "Daisy",
+		mintemp: "60",
+		maxtemp: "75",
+		image:"daisies.jpg"
+	},
+	{
+		name: "Eggplant",
+		mintemp: "65",
+		maxtemp: "85",
+		image:"eggplant.jpg"
+	},
+	{
+		name: "Garlic",
+		mintemp: "40",
+		maxtemp: "65",
+		image:"garlic.jpg"
+	},
+	{
+		name: "Geranium",
+		mintemp: "50",
+		maxtemp: "75",
+		image:"geranium.jpg"
+	},
+	{
+		name: "Grapes",
+		mintemp: "40",
+		maxtemp: "80",
+		image:"grapes.jpg"
+	},
+	{
+		name: "Green Bean",
+		mintemp: "50",
+		maxtemp: "85",
+		image:"greenbeans.jpg"
+	},
+	{
+		name: "Hibiscus",
+		mintemp: "60",
+		maxtemp: "80",
+		image:"hibiscus.jpg"
+	},
+	{
+		name: "Iris",
+		mintemp: "50",
+		maxtemp: "85",
+		image:"iris.jpg"
+	},
+	{
+		name: "Jalapenos",
+		mintemp: "70",
+		maxtemp: "80",
+		image:"jalapenos.jpg"
+	},
+	{
+		name: "Kiwi",
+		mintemp: "40",
+		maxtemp: "95",
+		image:"kiwi.jpg"
+	},
+	{
+		name: "Lettuce",
+		mintemp: "45",
+		maxtemp: "80",
+		image:"lettuce.jpg"
+	},
+	{
+		name: "Lima Bean",
+		mintemp: "60",
+		maxtemp: "75",
+		image:"limabeans.jpg"
+	},
+	{
+		name: "Onion",
+		mintemp: "55",
+		maxtemp: "75",
+		image:"opnions.jpg"
+	},
+	{
+		name: "Peas",
+		mintemp: "50",
+		maxtemp: "70",
+		image:"peas.jpg"
+	},
+	{
+		name: "Pineapple",
+		mintemp: "65",
+		maxtemp: "95",
+		image:"pineapple.jpg"
+	},
+	{
+		name: "Pumpkin",
+		mintemp: "50",
+		maxtemp: "90",
+		image:"pumpkin.jpg"
+	},
+	{
+		name: "Raspberry",
+		mintemp: "60",
+		maxtemp: "75",
+		image:"raspberries.jpg"
+	},
+	{
+		name: "Roses",
+		mintemp: "50",
+		maxtemp: "75",
+		image:"roses.jpg"
+	},
+	{
+		name: "Spinach",
+		mintemp: "45",
+		maxtemp: "75",
+		image:"spinach.jpg"
+	},
+	{
+		name: "Squash",
+		mintemp: "60",
+		maxtemp: "75",
+		image:"squash.jpg"
+	},
+	{
+		name: "Strawberry",
+		mintemp: "50",
+		maxtemp: "85",
+		image:"strawberries.jpg"
+	},
+	{
+		name: "Tomatoes",
+		mintemp: "65",
+		maxtemp: "85",
+		image:"tomatoes.jpg"
+	},
+	{
+		name: "Watermelon",
+		mintemp: "70",
+		maxtemp: "90",
+		image:"watermelon.jpg"
+	}
+]}

@@ -83,7 +83,7 @@
             android:layout_width="80dp"
             android:layout_height="42dp"
             android:layout_marginLeft="110dp"
-            android:text="3 GPH"
+            android:text="3 Cycles/Hour"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"
             android:layout_gravity="right" />
