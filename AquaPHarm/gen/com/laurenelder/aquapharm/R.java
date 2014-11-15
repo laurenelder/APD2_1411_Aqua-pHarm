@@ -11,9 +11,9 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int green=0x7f040002;
-        public static final int red=0x7f040000;
-        public static final int yellow=0x7f040001;
+        public static final int green=0x7f050002;
+        public static final int red=0x7f050000;
+        public static final int yellow=0x7f050001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -23,8 +23,8 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
         public static final int ic_action_about=0x7f020000;
@@ -36,43 +36,44 @@ public final class R {
         public static final int ic_launcher=0x7f020006;
     }
     public static final class id {
-        public static final int action_item_one=0x7f090023;
-        public static final int action_item_two=0x7f090024;
-        public static final int addContainerFrag=0x7f09001e;
-        public static final int bedOutput=0x7f090014;
-        public static final int container=0x7f09001d;
-        public static final int containerCapacityOutput=0x7f090008;
-        public static final int containerFrag=0x7f09001f;
-        public static final int containerHeight=0x7f090003;
-        public static final int containerHeightOutput=0x7f090007;
-        public static final int containerLength=0x7f090001;
-        public static final int containerSpinner=0x7f090000;
-        public static final int containerTypeOutput=0x7f090004;
-        public static final int containerWidth=0x7f090002;
-        public static final int containerWidthOutput=0x7f090006;
-        public static final int containerlengthOutput=0x7f090005;
-        public static final int fishEatable=0x7f090010;
-        public static final int fishFallColor=0x7f09000d;
-        public static final int fishFrag=0x7f090020;
-        public static final int fishImage=0x7f090009;
-        public static final int fishOverallColor=0x7f09000f;
-        public static final int fishSpinner=0x7f09000a;
-        public static final int fishSpringColor=0x7f09000b;
-        public static final int fishSummerColor=0x7f09000c;
-        public static final int fishWinterColor=0x7f09000e;
-        public static final int list=0x7f090011;
-        public static final int mainFrag=0x7f090021;
-        public static final int plantEatable=0x7f09001c;
-        public static final int plantFallColor=0x7f090019;
-        public static final int plantImage=0x7f090015;
-        public static final int plantOverallColor=0x7f09001b;
-        public static final int plantSpinner=0x7f090016;
-        public static final int plantSpringColor=0x7f090017;
-        public static final int plantSummerColor=0x7f090018;
-        public static final int plantWinterColor=0x7f09001a;
-        public static final int plantsFrag=0x7f090022;
-        public static final int waterInput=0x7f090012;
-        public static final int waterOutput=0x7f090013;
+        public static final int action_item_one=0x7f0a0024;
+        public static final int action_item_two=0x7f0a0025;
+        public static final int addContainerFrag=0x7f0a001f;
+        public static final int bedOutput=0x7f0a0015;
+        public static final int container=0x7f0a001e;
+        public static final int containerCapacityOutput=0x7f0a0008;
+        public static final int containerFrag=0x7f0a0020;
+        public static final int containerHeight=0x7f0a0003;
+        public static final int containerHeightOutput=0x7f0a0007;
+        public static final int containerLength=0x7f0a0001;
+        public static final int containerSpinner=0x7f0a0000;
+        public static final int containerTypeOutput=0x7f0a0004;
+        public static final int containerWidth=0x7f0a0002;
+        public static final int containerWidthOutput=0x7f0a0006;
+        public static final int containerlengthOutput=0x7f0a0005;
+        public static final int fishEatable=0x7f0a0010;
+        public static final int fishFallColor=0x7f0a000d;
+        public static final int fishFrag=0x7f0a0021;
+        public static final int fishImage=0x7f0a0009;
+        public static final int fishOverallColor=0x7f0a000f;
+        public static final int fishSpinner=0x7f0a000a;
+        public static final int fishSpringColor=0x7f0a000b;
+        public static final int fishSummerColor=0x7f0a000c;
+        public static final int fishWinterColor=0x7f0a000e;
+        public static final int linearLayout=0x7f0a0011;
+        public static final int list=0x7f0a0012;
+        public static final int mainFrag=0x7f0a0022;
+        public static final int plantEatable=0x7f0a001d;
+        public static final int plantFallColor=0x7f0a001a;
+        public static final int plantImage=0x7f0a0016;
+        public static final int plantOverallColor=0x7f0a001c;
+        public static final int plantSpinner=0x7f0a0017;
+        public static final int plantSpringColor=0x7f0a0018;
+        public static final int plantSummerColor=0x7f0a0019;
+        public static final int plantWinterColor=0x7f0a001b;
+        public static final int plantsFrag=0x7f0a0023;
+        public static final int waterInput=0x7f0a0013;
+        public static final int waterOutput=0x7f0a0014;
     }
     public static final class layout {
         public static final int activity_addcontainer=0x7f030000;
@@ -87,40 +88,100 @@ public final class R {
         public static final int fragment_plants=0x7f030009;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int main=0x7f090000;
+    }
+    public static final class raw {
+        public static final int angelface=0x7f040000;
+        public static final int azaleas=0x7f040001;
+        public static final int bellpeppers=0x7f040002;
+        public static final int birdofparadise=0x7f040003;
+        public static final int blackberries=0x7f040004;
+        public static final int blueberries=0x7f040005;
+        public static final int bluegill=0x7f040006;
+        public static final int broccoli=0x7f040007;
+        public static final int brusselssprouts=0x7f040008;
+        public static final int cabbage=0x7f040009;
+        public static final int carnations=0x7f04000a;
+        public static final int catfish=0x7f04000b;
+        public static final int celery=0x7f04000c;
+        public static final int cherries=0x7f04000d;
+        public static final int chives=0x7f04000e;
+        public static final int cichlids=0x7f04000f;
+        public static final int collardgreens=0x7f040010;
+        public static final int cucumbers=0x7f040011;
+        public static final int daffodils=0x7f040012;
+        public static final int daisies=0x7f040013;
+        public static final int eggplant=0x7f040014;
+        public static final int fish=0x7f040015;
+        public static final int garlic=0x7f040016;
+        public static final int geranium=0x7f040017;
+        public static final int goldfish=0x7f040018;
+        public static final int grapes=0x7f040019;
+        public static final int greenbeans=0x7f04001a;
+        public static final int hibiscus=0x7f04001b;
+        public static final int iris=0x7f04001c;
+        public static final int jalapenos=0x7f04001d;
+        public static final int kiwi=0x7f04001e;
+        public static final int koi=0x7f04001f;
+        public static final int laketrout=0x7f040020;
+        public static final int landlocksalmon=0x7f040021;
+        public static final int largemouthbass=0x7f040022;
+        public static final int lettuce=0x7f040023;
+        public static final int limabeans=0x7f040024;
+        public static final int minnow=0x7f040025;
+        public static final int onions=0x7f040026;
+        public static final int peas=0x7f040027;
+        public static final int pineapple=0x7f040028;
+        public static final int plants=0x7f040029;
+        public static final int pumpkin=0x7f04002a;
+        public static final int rainbowtrout=0x7f04002b;
+        public static final int raspberries=0x7f04002c;
+        public static final int roses=0x7f04002d;
+        public static final int smallmouthbass=0x7f04002e;
+        public static final int spinach=0x7f04002f;
+        public static final int squash=0x7f040030;
+        public static final int strawberries=0x7f040031;
+        public static final int tilapia=0x7f040032;
+        public static final int tomatoes=0x7f040033;
+        public static final int watermelon=0x7f040034;
+        public static final int whiteperch=0x7f040035;
+        public static final int yellowperch=0x7f040036;
     }
     public static final class string {
-        public static final int action_about=0x7f060007;
-        public static final int action_add=0x7f060003;
-        public static final int action_delete=0x7f060005;
-        public static final int action_edit=0x7f060004;
-        public static final int action_item=0x7f060002;
-        public static final int action_save=0x7f060006;
-        public static final int actionbar_buildsystem=0x7f060008;
-        public static final int actionbar_fish=0x7f060009;
-        public static final int actionbar_plants=0x7f06000a;
-        public static final int app_name=0x7f060000;
-        public static final int bed_rate_label=0x7f06000d;
-        public static final int container_capacity=0x7f060012;
-        public static final int container_height=0x7f060011;
-        public static final int container_length=0x7f06000f;
-        public static final int container_type=0x7f06000e;
-        public static final int container_width=0x7f060010;
-        public static final int fall_icon=0x7f06001c;
-        public static final int fall_label=0x7f060017;
-        public static final int fish_image_description=0x7f060013;
-        public static final int hello_world=0x7f060001;
-        public static final int overall_icon=0x7f06001e;
-        public static final int overall_label=0x7f060019;
-        public static final int plant_image_description=0x7f060014;
-        public static final int spring_icon=0x7f06001a;
-        public static final int spring_label=0x7f060015;
-        public static final int summer_icon=0x7f06001b;
-        public static final int summer_label=0x7f060016;
-        public static final int water_capacity_label=0x7f06000c;
-        public static final int water_rate_label=0x7f06000b;
-        public static final int winter_icon=0x7f06001d;
-        public static final int winter_label=0x7f060018;
+        public static final int action_about=0x7f070007;
+        public static final int action_add=0x7f070003;
+        public static final int action_delete=0x7f070005;
+        public static final int action_edit=0x7f070004;
+        public static final int action_item=0x7f070002;
+        public static final int action_save=0x7f070006;
+        public static final int actionbar_buildsystem=0x7f070008;
+        public static final int actionbar_fish=0x7f070009;
+        public static final int actionbar_plants=0x7f07000a;
+        public static final int app_name=0x7f070000;
+        public static final int bed_rate_label=0x7f07000d;
+        public static final int container_capacity=0x7f070012;
+        public static final int container_file_name=0x7f070021;
+        public static final int container_height=0x7f070011;
+        public static final int container_length=0x7f07000f;
+        public static final int container_type=0x7f07000e;
+        public static final int container_width=0x7f070010;
+        public static final int fall_icon=0x7f07001c;
+        public static final int fall_label=0x7f070017;
+        public static final int fish_file_name=0x7f07001f;
+        public static final int fish_image_description=0x7f070013;
+        public static final int hello_world=0x7f070001;
+        public static final int overall_icon=0x7f07001e;
+        public static final int overall_label=0x7f070019;
+        public static final int plant_image_description=0x7f070014;
+        public static final int plants_file_name=0x7f070020;
+        public static final int spring_icon=0x7f07001a;
+        public static final int spring_label=0x7f070015;
+        public static final int summer_icon=0x7f07001b;
+        public static final int summer_label=0x7f070016;
+        public static final int water_capacity_label=0x7f07000c;
+        public static final int water_rate_label=0x7f07000b;
+        public static final int winter_icon=0x7f07001d;
+        public static final int winter_label=0x7f070018;
     }
     public static final class style {
         /** 
@@ -144,9 +205,9 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
 }

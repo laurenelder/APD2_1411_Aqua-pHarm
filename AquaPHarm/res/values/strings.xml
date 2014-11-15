@@ -32,5 +32,8 @@
     <string name="fall_icon">Fall Icon</string>
     <string name="winter_icon">Winter Icon</string>
     <string name="overall_icon">Overall Icon</string>
+    <string name="fish_file_name">fish.json</string>
+    <string name="plants_file_name">plants.json</string>
+    <string name="container_file_name">container.txt</string>
 
 </resources>

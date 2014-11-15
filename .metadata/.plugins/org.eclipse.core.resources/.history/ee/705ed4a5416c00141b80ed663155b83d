@@ -1,0 +1,72 @@
+package com.laurenelder.aquapharm;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+public class AddContainerFragment extends Fragment {
+	
+	Context context;
+	Spinner addContainerSpinner;
+	String containerType;
+	EditText length;
+	EditText width;
+	EditText height;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View addContainerView = inflater.inflate(R.layout.activity_addcontainer, container);
+		
+		context = getActivity();
+		
+		addContainerSpinner = (Spinner) addContainerView.findViewById(R.id.containerSpinner);
+		length = (EditText) addContainerView.findViewById(R.id.containerLength);
+		width = (EditText) addContainerView.findViewById(R.id.containerWidth);
+		height = (EditText) addContainerView.findViewById(R.id.containerLength);
+		
+		List<String> containerTypes = new ArrayList<String>();
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
+				android.R.layout.simple_spinner_item, containerTypes);
+		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		addContainerSpinner.setAdapter(spinnerAdapter);
+		
+		containerTypes.add("Fish Tank");
+		containerTypes.add("Sump Tank");
+		containerTypes.add("Grow Bed");
+
+		spinnerAdapter.notifyDataSetChanged();
+		
+		return addContainerView;
+	}
+	
+	public ArrayList<String> getDataFields() {
+		if (!length.getText().toString().matches("") &&
+				!width.getText().toString().matches("") && 
+				!height.getText().toString().matches("")) {
+			
+			ArrayList<String> dataFields = new ArrayList<String>();
+			dataFields.add(containerType);
+			dataFields.add(length.getText().toString());
+			dataFields.add(width.getText().toString());
+			dataFields.add(height.getText().toString());
+			return dataFields;
+			
+		} else {
+			
+			Toast.makeText(context, "Please enter data in all fields before saving", Toast.LENGTH_SHORT).show();
+			return null;
+		}
+	}
+}

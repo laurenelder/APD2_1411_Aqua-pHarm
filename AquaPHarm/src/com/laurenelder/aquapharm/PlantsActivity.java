@@ -1,5 +1,12 @@
 package com.laurenelder.aquapharm;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.ActionBar;
@@ -8,13 +15,18 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class PlantsActivity extends Activity implements TabListener {
+public class PlantsActivity extends Activity implements TabListener, PlantsFragment.OnSelected {
 	
 	Context context;
+	String tag = "PlantsActivity";
+	FileManager fileManager;
 	boolean switched;
+	String fileName;
+	List<Plants> plantsList = new ArrayList<Plants>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +93,15 @@ public class PlantsActivity extends Activity implements TabListener {
 			}
 		}
 		if (tabIndex == 2) {
+			if (switched == false) {
+				if (!plantsList.isEmpty()) {
+					plantsList.removeAll(plantsList);
+				}
+				fileManager = FileManager.getInstance();
+				fileName = getResources().getString(R.string.plants_file_name);
+				checkForFile();
+				Log.i(tag, "Plant tab hit!");
+			}
 			switched = true;
 		}
 	}
@@ -96,5 +117,81 @@ public class PlantsActivity extends Activity implements TabListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public boolean checkForFile() {
+		boolean fileAvailable = false;
+    	
+			Log.i(tag, "CheckForFile hit");
+        	String fileContent = fileManager.readFromFile(context, null, getResources().openRawResource(R.raw.plants));
+        	Log.i(tag, "File Check is Running");
+        	if (!fileContent.isEmpty()) {
+        		parseData(fileContent.toString());
+        		fileAvailable = true;
+        	}
+        return fileAvailable;
+	}
 
+	// Get and Parse JSON Function... (fishData = Raw JSON code)
+	public Boolean parseData(String plantData) {
+
+		Log.i(tag, "parseData hit");
+		Boolean completed = false;
+		String jsonString = null;
+		if (plantData != null) {
+			jsonString = plantData;
+		}
+
+		// Parse JSON
+		try {
+			// Creating JSONObject from String
+			JSONObject mainObject = new JSONObject(jsonString);
+			JSONArray subObject = mainObject.getJSONArray("plants");
+
+			for (int i = 0; i < subObject.length(); i ++) {
+				JSONObject fishObject = subObject.getJSONObject(i);
+
+				// Class Specific Data
+				String plantName = fishObject.getString("name");
+				String plantMinTemp = fishObject.getString("mintemp");
+				String plantMaxTemp = fishObject.getString("maxtemp");
+				String plantImage = fishObject.getString("image");
+				Log.i(tag, plantName);
+				Log.i(tag, plantMinTemp);
+				Log.i(tag, plantMaxTemp);
+				Log.i(tag, plantImage);
+				Integer minTempInt = Integer.parseInt(plantMinTemp);
+				Integer maxTempInt = Integer.parseInt(plantMaxTemp);
+
+				// Save Data Here
+				setClass(plantName, minTempInt, maxTempInt, plantImage);
+			}
+			completed = true;
+		} 
+		catch (JSONException e) {
+			// TODO Auto-generated catch block
+			Log.e(tag, e.getMessage().toString());
+			Log.i(tag, "Something went wrong parsing plants");
+			e.printStackTrace();
+		}
+		return completed;
+	}
+
+	// Save Parsed Data to Class
+	public void setClass(String name, Integer minTemp, Integer maxTemp, String image) {
+		Log.i(tag, "setClass hit");
+		Plants newPlant = new Plants(name, minTemp, maxTemp, image);
+			plantsList.add(newPlant);
+	}
+
+	@Override
+	public ArrayList getData(int pos) {
+		// TODO Auto-generated method stub
+		ArrayList<String> item = new ArrayList<String>();
+		item.add(plantsList.get(pos).name);
+		item.add(plantsList.get(pos).minTemp.toString());
+		item.add(plantsList.get(pos).maxTemp.toString());
+		item.add(plantsList.get(pos).image);
+		Log.i(tag, item.toString());
+		return item;
+	}
 }

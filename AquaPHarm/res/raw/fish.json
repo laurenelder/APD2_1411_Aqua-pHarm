@@ -72,7 +72,7 @@
 		image: "tilapia.jpg"
 	},
 
-{
+	{
 		name: "White Perch",
 		mintemp: "52",
 		maxtemp: "60",
@@ -82,7 +82,7 @@
 		name: "Yellow Perch",
 		mintemp: "66",
 		maxtemp: "75",
-		image: "bluegill.jpg"
-	},
+		image: "yellowperch.jpg"
+	}
 
 ]}
