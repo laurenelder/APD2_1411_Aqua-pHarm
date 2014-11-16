@@ -95,7 +95,6 @@ public class AddContainerActivity extends Activity {
 			ArrayList<String> fieldInfo = new ArrayList<String>();
 			fieldInfo = ((AddContainerFragment) AddContainerFrag).getDataFields();
 			if (fieldInfo != null) {
-				save = true;
 				if (setData(fieldInfo.get(0).toString(), 
 						fieldInfo.get(1).toString(), 
 						fieldInfo.get(2).toString(), 
@@ -173,7 +172,7 @@ public class AddContainerActivity extends Activity {
 	public boolean setData (String type, String length, String width, 
 			String height) {
 		
-		if (save == true) {
+		if (edit == true) {
 			containerList.remove(thisIntent.getExtras().getInt("spot"));
 			Containers newContainer = new Containers(type, length, width,
 					height);
