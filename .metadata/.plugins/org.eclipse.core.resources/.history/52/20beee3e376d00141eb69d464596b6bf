@@ -12,6 +12,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:contentDescription="@string/fish_image_description"
+        android:src="@drawable/ic_launcher"
         android:layout_gravity="center" />
 
     <Spinner

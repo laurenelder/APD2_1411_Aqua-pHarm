@@ -5,17 +5,18 @@
     android:orientation="vertical" >
     
     <ImageView 
-        android:id="@+id/fishImage"
+        android:id="@+id/plantImage"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:contentDescription="@string/fish_image_description"
+        android:contentDescription="@string/plant_image_description"
+        android:src="@drawable/ic_launcher"
         android:layout_gravity="center" />
 
     <Spinner
-        android:id="@+id/fishSpinner"
+        android:id="@+id/plantSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -39,11 +40,11 @@
             android:layout_gravity="left" />
         
         <ImageView
-            android:id="@+id/fishSpringColor"
+            android:id="@+id/plantSpringColor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/yellow"
+            android:background="@color/green"
             android:contentDescription="@string/spring_icon"
             android:layout_gravity="right" />
         
@@ -66,7 +67,7 @@
             android:layout_gravity="left" />
         
         <ImageView
-            android:id="@+id/fishSummerColor"
+            android:id="@+id/plantSummerColor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
@@ -93,11 +94,11 @@
             android:layout_gravity="left" />
         
         <ImageView
-            android:id="@+id/fishFallColor"
+            android:id="@+id/plantFallColor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/yellow"
+            android:background="@color/green"
             android:contentDescription="@string/fall_icon"
             android:layout_gravity="right" />
         
@@ -120,11 +121,11 @@
             android:layout_gravity="left" />
         
         <ImageView
-            android:id="@+id/fishWinterColor"
+            android:id="@+id/plantWinterColor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/red"
+            android:background="@color/yellow"
             android:contentDescription="@string/winter_icon"
             android:layout_gravity="right" />
         
@@ -147,23 +148,24 @@
             android:layout_gravity="left" />
         
         <ImageView
-            android:id="@+id/fishOverallColor"
+            android:id="@+id/plantOverallColor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/yellow"
+            android:background="@color/green"
             android:contentDescription="@string/overall_icon"
             android:layout_gravity="right" />
         
     </LinearLayout>
     
     <TextView
-        android:id="@+id/fishEatable"
+        android:id="@+id/plantEatable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Uneatable"
+        android:text="Eatable"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center" />
 
 </LinearLayout>
+
