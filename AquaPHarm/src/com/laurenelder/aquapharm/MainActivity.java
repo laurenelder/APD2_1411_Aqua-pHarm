@@ -152,48 +152,51 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 				String cwidth = data.getExtras().getString("width").toString();
 				String cheight = data.getExtras().getString("height").toString();
 				String button = data.getExtras().getString("button").toString();
-				int spot = 0;
-				
+				int position = data.getExtras().getInt("position");
+
 				Log.i(tag, "requestCode 2 hit");
 				Log.i(tag, containerList.toString());
-				
-				for (int r = 0; r < containerList.size(); r++) {
-					if (ctype == containerList.get(r).type.toString() && 
-							clength == containerList.get(r).length.toString() && 
-							cwidth == containerList.get(r).width.toString() && 
-							cheight == containerList.get(r).height.toString()) {
-						spot = r;
-//						Log.i(tag, "CallBack hit - " + spot.toString());
-					}
-				}
-				
+
 				if (button.matches("edit")) {
 					Intent addIntent = new Intent(context, AddContainerActivity.class);
 					addIntent.putExtra("type", ctype);
 					addIntent.putExtra("length", clength);
 					addIntent.putExtra("width", cwidth);
 					addIntent.putExtra("height", cheight);
-					addIntent.putExtra("spot", spot);
+					addIntent.putExtra("spot", position);
 					startActivityForResult(addIntent, 1);
 				}
 				if (button.matches("delete")) {
-//					Log.i(tag, "Delete Hit" + "-" + spot.toString());
-					containerList.remove(spot);
-					saveData();
+					//					Log.i(tag, "Delete Hit" + "-" + spot.toString());
+
+					if (containerList.size() > 1) {
+						containerList.remove(position);
+						saveData();
+					} else {
+						containerList.removeAll(containerList);
+						File checkForFileExist = getBaseContext().getFileStreamPath(getResources()
+								.getString(R.string.container_file_name));
+						if (checkForFileExist.exists()) {
+							checkForFileExist.delete();
+						}
+						((MainFragment) mainFrag).clearList();
+						((MainFragment) mainFrag).updateListView();
+					}
 				}
 			}
 		}
 	}
-	
+
 	public void startContainerActivity(int pos) {
 		Intent containerIntent = new Intent(context, ContainerActivity.class);
 		containerIntent.putExtra("type", containerList.get(pos).type);
 		containerIntent.putExtra("length", containerList.get(pos).length);
 		containerIntent.putExtra("width", containerList.get(pos).width);
 		containerIntent.putExtra("height", containerList.get(pos).height);
+		containerIntent.putExtra("position", pos);
 		startActivityForResult(containerIntent, 2);
 	}
-	
+
 	public void checkForFile() {
 		// Check for saved file and parse if file is available
 		if (!containerList.isEmpty()) {
@@ -212,7 +215,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 			}
 		}
 	}
-	
+
 	/* parseData is passed in a raw string from saved file, parses, and calls
 	 * the setData method
 	 */
@@ -276,7 +279,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		containerList.add(newContainer);
 		return true;
 	}
-	
+
 	public Double getTotalCapacity() {
 		Double cap = 0.00;
 		for (int q = 0; q < containerList.size(); q++) {
@@ -284,21 +287,21 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 					Integer.parseInt(containerList.get(q).width) * 
 					Integer.parseInt(containerList.get(q).height);
 			Log.i(tag, cuInches.toString());
-			
+
 			Double cuFoot = cuInches / 1728.00;
-			
+
 			Double gallons = 7.48 * cuFoot;
-			
+
 			cap = cap + gallons;
 		}
 		return cap;
 	}
-	
+
 	public Double getCycleRate(Integer flow) {
 		Double cycleRate = cap / flow;
 		return cycleRate;
 	}
-	
+
 	/* saveData method is called by the action bar button.
 	 * This method builds a JSON file from the objects store within custom
 	 * objects and calls writeToFile to save the JSON file to the device.

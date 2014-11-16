@@ -82,7 +82,7 @@ public class MainFragment extends Fragment {
 		totalCapacity = (TextView) buildSystemView.findViewById(R.id.waterOutput);
 		cycleRate = (TextView) buildSystemView.findViewById(R.id.bedOutput);
 		linearLayout = (LinearLayout) buildSystemView.findViewById(R.id.linearLayout);
-		
+
 		linearLayout.setOnTouchListener(new OnTouchListener() {
 
 			@Override
@@ -93,9 +93,9 @@ public class MainFragment extends Fragment {
 				}
 				return false;
 			}
-			
+
 		});
-		
+
 		flowInput.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -108,7 +108,7 @@ public class MainFragment extends Fragment {
 					cycleRate.setText(rateStr + " Cycles");
 				}
 			}
-			
+
 		});
 
 		// Setup ListView
@@ -158,7 +158,7 @@ public class MainFragment extends Fragment {
 		String capStr = String.format("%.1f", cap);
 		totalCapacity.setText(capStr + " Gallons");
 	}
-	
+
 	public void clearList() {
 		if (!containerList.isEmpty()) {
 			fishTankNum = 0;

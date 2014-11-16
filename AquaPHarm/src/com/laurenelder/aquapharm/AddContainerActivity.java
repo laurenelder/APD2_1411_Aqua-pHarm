@@ -62,14 +62,14 @@ public class AddContainerActivity extends Activity {
 				Log.i(tag, fileContent.toString());
 			}
 		}
-		
+
 		if (thisIntent.hasExtra("spot")) {
 			edit = true;
 			((AddContainerFragment) AddContainerFrag).updateFields
-				(thisIntent.getExtras().getString("type").toString(), 
-				thisIntent.getExtras().getString("length").toString(), 
-				thisIntent.getExtras().getString("width").toString(), 
-				thisIntent.getExtras().getString("height").toString());
+			(thisIntent.getExtras().getString("type").toString(), 
+					thisIntent.getExtras().getString("length").toString(), 
+					thisIntent.getExtras().getString("width").toString(), 
+					thisIntent.getExtras().getString("height").toString());
 		}
 	}
 
@@ -171,7 +171,7 @@ public class AddContainerActivity extends Activity {
 	 */
 	public boolean setData (String type, String length, String width, 
 			String height) {
-		
+
 		if (edit == true) {
 			containerList.remove(thisIntent.getExtras().getInt("spot"));
 			Containers newContainer = new Containers(type, length, width,
@@ -182,7 +182,7 @@ public class AddContainerActivity extends Activity {
 					height);
 			containerList.add(newContainer);
 		}
-		
+
 		return true;
 	}
 
