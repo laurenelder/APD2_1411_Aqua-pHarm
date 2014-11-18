@@ -148,14 +148,13 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 			JSONArray subObject = mainObject.getJSONArray("plants");
 
 			for (int i = 0; i < subObject.length(); i ++) {
-				JSONObject plantObject = subObject.getJSONObject(i);
+				JSONObject fishObject = subObject.getJSONObject(i);
 
 				// Class Specific Data
-				String plantName = plantObject.getString("name");
-				String plantMinTemp = plantObject.getString("mintemp");
-				String plantMaxTemp = plantObject.getString("maxtemp");
-				String plantImage = plantObject.getString("image");
-				String plantEdible = plantObject.getString("edible");
+				String plantName = fishObject.getString("name");
+				String plantMinTemp = fishObject.getString("mintemp");
+				String plantMaxTemp = fishObject.getString("maxtemp");
+				String plantImage = fishObject.getString("image");
 				Log.i(tag, plantName);
 				Log.i(tag, plantMinTemp);
 				Log.i(tag, plantMaxTemp);
@@ -164,7 +163,7 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 				Integer maxTempInt = Integer.parseInt(plantMaxTemp);
 
 				// Save Data Here
-				setClass(plantName, minTempInt, maxTempInt, plantImage, plantEdible);
+				setClass(plantName, minTempInt, maxTempInt, plantImage);
 			}
 			completed = true;
 		} 
@@ -178,9 +177,9 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	}
 
 	// Save Parsed Data to Class
-	public void setClass(String name, Integer minTemp, Integer maxTemp, String image, String edible) {
+	public void setClass(String name, Integer minTemp, Integer maxTemp, String image) {
 		Log.i(tag, "setClass hit");
-		Plants newPlant = new Plants(name, minTemp, maxTemp, image, edible);
+		Plants newPlant = new Plants(name, minTemp, maxTemp, image);
 			plantsList.add(newPlant);
 	}
 
@@ -192,8 +191,6 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		item.add(plantsList.get(pos).minTemp.toString());
 		item.add(plantsList.get(pos).maxTemp.toString());
 		item.add(plantsList.get(pos).image);
-		item.add(plantsList.get(pos).edible);
-		
 		Log.i(tag, item.toString());
 		return item;
 	}

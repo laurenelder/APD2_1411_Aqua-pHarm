@@ -1,5 +1,6 @@
 package com.laurenelder.aquapharm;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -19,23 +20,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class PlantsActivity extends Activity implements TabListener, PlantsFragment.OnSelected {
+public class FishActivity extends Activity implements TabListener, FishFragment.OnSelected {
 	
+	String tag = "FISH ACTIVITY";
 	Context context;
-	String tag = "PlantsActivity";
 	FileManager fileManager;
 	boolean switched;
 	String fileName;
-	List<Plants> plantsList = new ArrayList<Plants>();
+	List<Fish> fishList = new ArrayList<Fish>();
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_plants);
+		setContentView(R.layout.fragment_fish);
 		
 		context = this;
 		switched = false;
+		
+		
 		
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -50,17 +54,15 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
         actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
         actionBar.addTab(actionBarTab);
         
-        actionBar.setSelectedNavigationItem(2);
-        
+        actionBar.setSelectedNavigationItem(1);
         
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-        getMenuInflater().inflate(R.menu.main, menu);
-        
- //       menu.findItem(R.id.action_about).s
+		getMenuInflater().inflate(R.menu.main, menu);
+		
         menu.findItem(R.id.action_item_one).setEnabled(false).setVisible(false);
         
 //        menu.findItem(R.id.action_item_one).setIcon(R.drawable.ic_action_new);
@@ -81,28 +83,27 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		int tabIndex = tab.getPosition();
 		if (tabIndex == 0) {
 			if (switched == true) {
-				Intent buildIntent = new Intent(context, MainActivity.class);
+				Intent buildIntent = new Intent(this, MainActivity.class);
 				startActivity(buildIntent);
 			}
 		}
 		if (tabIndex == 1) {
-//			switched = true;
-			if (switched == true) {
-				Intent fishIntent = new Intent(context, FishActivity.class);
-				startActivity(fishIntent);
-			}
-		}
-		if (tabIndex == 2) {
 			if (switched == false) {
-				if (!plantsList.isEmpty()) {
-					plantsList.removeAll(plantsList);
+				if (!fishList.isEmpty()) {
+					fishList.removeAll(fishList);
 				}
 				fileManager = FileManager.getInstance();
-				fileName = getResources().getString(R.string.plants_file_name);
+				fileName = getResources().getString(R.string.fish_file_name);
 				checkForFile();
-				Log.i(tag, "Plant tab hit!");
+				Log.i(tag, "Fish tab hit!");
 			}
 			switched = true;
+		}
+		if (tabIndex == 2) {
+			if (switched == true) {
+				Intent plantsIntent = new Intent(context, PlantsActivity.class);
+				startActivity(plantsIntent);
+			}
 		}
 	}
 
@@ -118,11 +119,17 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		
 	}
 	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public boolean checkForFile() {
 		boolean fileAvailable = false;
     	
 			Log.i(tag, "CheckForFile hit");
-        	String fileContent = fileManager.readFromFile(context, null, getResources().openRawResource(R.raw.plants));
+        	String fileContent = fileManager.readFromFile(context, null, getResources().openRawResource(R.raw.fish));
         	Log.i(tag, "File Check is Running");
         	if (!fileContent.isEmpty()) {
         		parseData(fileContent.toString());
@@ -132,68 +139,65 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	}
 
 	// Get and Parse JSON Function... (fishData = Raw JSON code)
-	public Boolean parseData(String plantData) {
+	public Boolean parseData(String fishData) {
 
 		Log.i(tag, "parseData hit");
 		Boolean completed = false;
 		String jsonString = null;
-		if (plantData != null) {
-			jsonString = plantData;
+		if (fishData != null) {
+			jsonString = fishData;
 		}
 
 		// Parse JSON
 		try {
 			// Creating JSONObject from String
 			JSONObject mainObject = new JSONObject(jsonString);
-			JSONArray subObject = mainObject.getJSONArray("plants");
+			JSONArray subObject = mainObject.getJSONArray("fish");
 
 			for (int i = 0; i < subObject.length(); i ++) {
-				JSONObject plantObject = subObject.getJSONObject(i);
+				JSONObject fishObject = subObject.getJSONObject(i);
 
 				// Class Specific Data
-				String plantName = plantObject.getString("name");
-				String plantMinTemp = plantObject.getString("mintemp");
-				String plantMaxTemp = plantObject.getString("maxtemp");
-				String plantImage = plantObject.getString("image");
-				String plantEdible = plantObject.getString("edible");
-				Log.i(tag, plantName);
-				Log.i(tag, plantMinTemp);
-				Log.i(tag, plantMaxTemp);
-				Log.i(tag, plantImage);
-				Integer minTempInt = Integer.parseInt(plantMinTemp);
-				Integer maxTempInt = Integer.parseInt(plantMaxTemp);
+				String fishName = fishObject.getString("name");
+				String fishMinTemp = fishObject.getString("mintemp");
+				String fishMaxTemp = fishObject.getString("maxtemp");
+				String fishImage = fishObject.getString("image");
+				Log.i(tag, fishName);
+				Log.i(tag, fishMinTemp);
+				Log.i(tag, fishMaxTemp);
+				Log.i(tag, fishImage);
+				Integer minTempInt = Integer.parseInt(fishMinTemp);
+				Integer maxTempInt = Integer.parseInt(fishMaxTemp);
 
 				// Save Data Here
-				setClass(plantName, minTempInt, maxTempInt, plantImage, plantEdible);
+				setClass(fishName, minTempInt, maxTempInt, fishImage);
 			}
 			completed = true;
 		} 
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
 			Log.e(tag, e.getMessage().toString());
-			Log.i(tag, "Something went wrong parsing plants");
+			Log.i(tag, "Something went wrong parsing fish");
 			e.printStackTrace();
 		}
 		return completed;
 	}
 
 	// Save Parsed Data to Class
-	public void setClass(String name, Integer minTemp, Integer maxTemp, String image, String edible) {
+	public void setClass(String name, Integer minTemp, Integer maxTemp, String image) {
 		Log.i(tag, "setClass hit");
-		Plants newPlant = new Plants(name, minTemp, maxTemp, image, edible);
-			plantsList.add(newPlant);
+			Fish newFish = new Fish(name, minTemp, maxTemp, image);
+			fishList.add(newFish);
 	}
 
 	@Override
 	public ArrayList getData(int pos) {
 		// TODO Auto-generated method stub
 		ArrayList<String> item = new ArrayList<String>();
-		item.add(plantsList.get(pos).name);
-		item.add(plantsList.get(pos).minTemp.toString());
-		item.add(plantsList.get(pos).maxTemp.toString());
-		item.add(plantsList.get(pos).image);
-		item.add(plantsList.get(pos).edible);
-		
+		item.add(fishList.get(pos).name);
+		item.add(fishList.get(pos).minTemp.toString());
+		item.add(fishList.get(pos).maxTemp.toString());
+		item.add(fishList.get(pos).image);
 		Log.i(tag, item.toString());
 		return item;
 	}

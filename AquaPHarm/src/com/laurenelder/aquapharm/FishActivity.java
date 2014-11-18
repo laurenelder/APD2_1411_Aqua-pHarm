@@ -162,6 +162,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 				String fishMinTemp = fishObject.getString("mintemp");
 				String fishMaxTemp = fishObject.getString("maxtemp");
 				String fishImage = fishObject.getString("image");
+				String fishEdible = fishObject.getString("edible");
 				Log.i(tag, fishName);
 				Log.i(tag, fishMinTemp);
 				Log.i(tag, fishMaxTemp);
@@ -170,7 +171,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 				Integer maxTempInt = Integer.parseInt(fishMaxTemp);
 
 				// Save Data Here
-				setClass(fishName, minTempInt, maxTempInt, fishImage);
+				setClass(fishName, minTempInt, maxTempInt, fishImage, fishEdible);
 			}
 			completed = true;
 		} 
@@ -184,9 +185,9 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 	}
 
 	// Save Parsed Data to Class
-	public void setClass(String name, Integer minTemp, Integer maxTemp, String image) {
+	public void setClass(String name, Integer minTemp, Integer maxTemp, String image,String edible) {
 		Log.i(tag, "setClass hit");
-			Fish newFish = new Fish(name, minTemp, maxTemp, image);
+			Fish newFish = new Fish(name, minTemp, maxTemp, image, edible);
 			fishList.add(newFish);
 	}
 
@@ -198,6 +199,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 		item.add(fishList.get(pos).minTemp.toString());
 		item.add(fishList.get(pos).maxTemp.toString());
 		item.add(fishList.get(pos).image);
+		item.add(fishList.get(pos).edible);
 		Log.i(tag, item.toString());
 		return item;
 	}

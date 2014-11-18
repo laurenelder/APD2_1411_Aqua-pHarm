@@ -6,15 +6,12 @@ public class Plants {
 	public Integer minTemp;
 	public Integer maxTemp;
 	public String image;
-	public String edible;
 	
-	public Plants(String plantName, Integer minPlantTemp, Integer maxPlantTemp, 
-			String plantImage, String plantEdible) {
+	public Plants(String plantName, Integer minPlantTemp, Integer maxPlantTemp, String plantImage) {
 		this.name = plantName;
 		this.minTemp = minPlantTemp;
 		this.maxTemp = maxPlantTemp;
 		this.image = plantImage;
-		this.edible = plantEdible;
 	}
 	
 	public String toString() {

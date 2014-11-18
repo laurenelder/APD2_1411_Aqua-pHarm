@@ -3,234 +3,273 @@
 		name: "Angel Face",
 		mintemp: "65",
 		maxtemp: "75",
-		image:"angelface.jpg"
+		image:"angelface.jpg",
+		edible:"no"
 	},
 	{
 		name: "Azalea",
 		mintemp: "60",
 		maxtemp: "85",
-		image:"azaleas.jpg"
+		image:"azaleas.jpg",
+		edible:"no"
 	},
 	{
 		name: "Bell Pepper",
 		mintemp: "65",
 		maxtemp: "80",
-		image:"bellpeppers.jpg"
+		image:"bellpeppers.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Bird of Paradise",
 		mintemp: "60",
 		maxtemp: "80",
-		image:"birdofparadise.jpg"
+		image:"birdofparadise.jpg",
+		edible:"no"
 	},
 	{
 		name: "Blackberry",
 		mintemp: "20",
 		maxtemp: "60",
-		image:"blackberries.jpg"
+		image:"blackberries.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Blueberry",
 		mintemp: "40",
 		maxtemp: "70",
-		image:"blueberries.jpg"
+		image:"blueberries.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Broccoli",
 		mintemp: "60",
 		maxtemp: "80",
-		image:"broccoli.jpg"
+		image:"broccoli.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Brussel Sprouts",
 		mintemp: "50",
 		maxtemp: "70",
-		image:"brusselssprouts.jpg"
+		image:"brusselssprouts.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Cabbage",
 		mintemp: "50",
 		maxtemp: "70",
-		image:"cabbage.jpg"
+		image:"cabbage.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Carnation",
 		mintemp: "50",
 		maxtemp: "75",
-		image:"carnations.jpg"
+		image:"carnations.jpg",
+		edible:"no"
 	},
 	{
 		name: "Celery",
 		mintemp: "50",
 		maxtemp: "75",
-		image:"celery.jpg"
+		image:"celery.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Cherries",
 		mintemp: "40",
 		maxtemp: "70",
-		image:"cherries.jpg"
+		image:"cherries.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Chive",
 		mintemp: "40",
 		maxtemp: "85",
-		image:"chives.jpg"
+		image:"chives.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Collard Green",
 		mintemp: "35",
 		maxtemp: "70",
-		image:"collardgreens.jpg"
+		image:"collardgreens.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Cucumber",
 		mintemp: "60",
 		maxtemp: "95",
-		image:"cucumbers.jpg"
+		image:"cucumbers.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Daffodil",
 		mintemp: "50",
 		maxtemp: "75",
-		image:"daffodils.jpg"
+		image:"daffodils.jpg",
+		edible:"no"
 	},
 	{
 		name: "Daisy",
 		mintemp: "60",
 		maxtemp: "75",
-		image:"daisies.jpg"
+		image:"daisies.jpg",
+		edible:"no"
 	},
 	{
 		name: "Eggplant",
 		mintemp: "65",
 		maxtemp: "85",
-		image:"eggplant.jpg"
+		image:"eggplant.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Garlic",
 		mintemp: "40",
 		maxtemp: "65",
-		image:"garlic.jpg"
+		image:"garlic.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Geranium",
 		mintemp: "50",
 		maxtemp: "75",
-		image:"geranium.jpg"
+		image:"geranium.jpg",
+		edible:"no"
 	},
 	{
 		name: "Grapes",
 		mintemp: "40",
 		maxtemp: "80",
-		image:"grapes.jpg"
+		image:"grapes.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Green Bean",
 		mintemp: "50",
 		maxtemp: "85",
-		image:"greenbeans.jpg"
+		image:"greenbeans.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Hibiscus",
 		mintemp: "60",
 		maxtemp: "80",
-		image:"hibiscus.jpg"
+		image:"hibiscus.jpg",
+		edible:"no"
 	},
 	{
 		name: "Iris",
 		mintemp: "50",
 		maxtemp: "85",
-		image:"iris.jpg"
+		image:"iris.jpg",
+		edible:"no"
 	},
 	{
 		name: "Jalapenos",
 		mintemp: "70",
 		maxtemp: "80",
-		image:"jalapenos.jpg"
+		image:"jalapenos.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Kiwi",
 		mintemp: "40",
 		maxtemp: "95",
-		image:"kiwi.jpg"
+		image:"kiwi.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Lettuce",
 		mintemp: "45",
 		maxtemp: "80",
-		image:"lettuce.jpg"
+		image:"lettuce.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Lima Bean",
 		mintemp: "60",
 		maxtemp: "75",
-		image:"limabeans.jpg"
+		image:"limabeans.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Onion",
 		mintemp: "55",
 		maxtemp: "75",
-		image:"opnions.jpg"
+		image:"opnions.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Peas",
 		mintemp: "50",
 		maxtemp: "70",
-		image:"peas.jpg"
+		image:"peas.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Pineapple",
 		mintemp: "65",
 		maxtemp: "95",
-		image:"pineapple.jpg"
+		image:"pineapple.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Pumpkin",
 		mintemp: "50",
 		maxtemp: "90",
-		image:"pumpkin.jpg"
+		image:"pumpkin.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Raspberry",
 		mintemp: "60",
 		maxtemp: "75",
-		image:"raspberries.jpg"
+		image:"raspberries.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Roses",
 		mintemp: "50",
 		maxtemp: "75",
-		image:"roses.jpg"
+		image:"roses.jpg",
+		edible:"no"
 	},
 	{
 		name: "Spinach",
 		mintemp: "45",
 		maxtemp: "75",
-		image:"spinach.jpg"
+		image:"spinach.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Squash",
 		mintemp: "60",
 		maxtemp: "75",
-		image:"squash.jpg"
+		image:"squash.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Strawberry",
 		mintemp: "50",
 		maxtemp: "85",
-		image:"strawberries.jpg"
+		image:"strawberries.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Tomatoes",
 		mintemp: "65",
 		maxtemp: "85",
-		image:"tomatoes.jpg"
+		image:"tomatoes.jpg",
+		edible:"yes"
 	},
 	{
 		name: "Watermelon",
 		mintemp: "70",
 		maxtemp: "90",
-		image:"watermelon.jpg"
+		image:"watermelon.jpg",
+		edible:"yes"
 	}
 ]}

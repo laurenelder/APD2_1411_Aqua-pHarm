@@ -178,7 +178,7 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	}
 
 	// Save Parsed Data to Class
-	public void setClass(String name, Integer minTemp, Integer maxTemp, String image, String edible) {
+	public void setClass(String name, Integer minTemp, Integer maxTemp, String image, edible) {
 		Log.i(tag, "setClass hit");
 		Plants newPlant = new Plants(name, minTemp, maxTemp, image, edible);
 			plantsList.add(newPlant);

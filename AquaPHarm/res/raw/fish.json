@@ -3,86 +3,100 @@
 		name: "Blue Gill",
 		mintemp: "65",
 		maxtemp: "72",
-		image: "bluegill.jpg"
+		image: "bluegill.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Catfish",
 		mintemp: "75",
 		maxtemp: "85",
-		image: "catfish.jpg"
+		image: "catfish.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Cichlids",
 		mintemp: "72",
 		maxtemp: "82",
-		image: "cichlids.jpg"
+		image: "cichlids.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Gold Fish",
 		mintemp: "68",
 		maxtemp: "75",
-		image: "goldfish.jpg"
+		image: "goldfish.jpg",
+		edible: "yes"
 	},
 		{
 		name: "Koi",
 		mintemp: "60",
 		maxtemp: "75",
-		image: "koi.jpg"
+		image: "koi.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Lake Trout",
 		mintemp: "45",
 		maxtemp: "55",
-		image: "laketrout.jpg"
+		image: "laketrout.jpg",
+		edible: "yes"
 	},
 		{
 		name: "Land Locked Salmon",
 		mintemp: "53",
 		maxtemp: "57",
-		image: "landlocksalmon.jpg"
+		image: "landlocksalmon.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Large Mouth Bass",
 		mintemp: "60",
 		maxtemp: "75",
-		image: "largemouthbass.jpg"
+		image: "largemouthbass.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Minnow",
 		mintemp: "65",
 		maxtemp: "70",
-		image: "minnow.jpg"
+		image: "minnow.jpg",
+		edible: "no"
 	},
 	{
 		name: "Rainbow Trout",
 		mintemp: "55",
 		maxtemp: "70",
-		image: "rainbowtrout.jpg"
+		image: "rainbowtrout.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Small Mouth Bass",
 		mintemp: "65",
 		maxtemp: "75",
-		image: "smallmouthbass.jpg"
+		image: "smallmouthbass.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Tilapia",
 		mintemp: "65",
 		maxtemp: "72",
-		image: "tilapia.jpg"
+		image: "tilapia.jpg",
+		edible: "yes"
 	},
 
 	{
 		name: "White Perch",
 		mintemp: "52",
 		maxtemp: "60",
-		image: "whiteperch.jpg"
+		image: "whiteperch.jpg",
+		edible: "yes"
 	},
 	{
 		name: "Yellow Perch",
 		mintemp: "66",
 		maxtemp: "75",
-		image: "yellowperch.jpg"
+		image: "yellowperch.jpg",
+		edible: "yes"
 	}
 
 ]}
