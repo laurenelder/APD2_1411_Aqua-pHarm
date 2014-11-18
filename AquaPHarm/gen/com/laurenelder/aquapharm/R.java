@@ -157,6 +157,9 @@ public final class R {
         public static final int actionbar_buildsystem=0x7f070008;
         public static final int actionbar_fish=0x7f070009;
         public static final int actionbar_plants=0x7f07000a;
+        public static final int api_end=0x7f070024;
+        public static final int api_precoord=0x7f070023;
+        public static final int api_prehistory=0x7f070022;
         public static final int app_name=0x7f070000;
         public static final int bed_rate_label=0x7f07000d;
         public static final int container_capacity=0x7f070012;

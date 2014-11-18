@@ -1,7 +1,14 @@
 package com.laurenelder.aquapharm;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -17,23 +24,40 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 
-public class MainActivity extends Activity implements TabListener, MainFragment.mainInterface {
+public class MainActivity extends Activity implements TabListener, MainFragment.mainInterface, 
+	LocationListener {
 
 	String tag = "MAIN ACTIVITY";
 	Context context;
 	FileManager fileManager;
 	FragmentManager fragMgr;
 	Fragment mainFrag;
+	LocationManager locMgr;
+	Location loc;
 	boolean switched;
 	Double cap;
+	URL url = null;
+	Integer apiNum = 0;
+	String modifiedDate;
+	String latit;
+	String longit;
 	List <Containers> containerList = new ArrayList<Containers>();
+	List <Weather> weatherInfo = new ArrayList<Weather>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +89,14 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 			mainFrag = new AddContainerFragment();
 		}
 
+		// Setup LocationManager for GPS updates
+		locMgr = (LocationManager)getSystemService(LOCATION_SERVICE);
+		//        locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+		locMgr.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+		loc = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
 		checkForFile();
+		
 	}
 
 
@@ -154,8 +185,8 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 				String button = data.getExtras().getString("button").toString();
 				int position = data.getExtras().getInt("position");
 
-				Log.i(tag, "requestCode 2 hit");
-				Log.i(tag, containerList.toString());
+//				Log.i(tag, "requestCode 2 hit");
+//				Log.i(tag, containerList.toString());
 
 				if (button.matches("edit")) {
 					Intent addIntent = new Intent(context, AddContainerActivity.class);
@@ -210,8 +241,8 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 			String fileContent = fileManager.readFromFile(context, getResources()
 					.getString(R.string.container_file_name), null);
 			if (fileContent != null) {
-				parseData(fileContent.toString());
-				Log.i(tag, fileContent.toString());
+				parseData(fileContent.toString(), "containers");
+//				Log.i(tag, fileContent.toString());
 			}
 		}
 	}
@@ -219,53 +250,86 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 	/* parseData is passed in a raw string from saved file, parses, and calls
 	 * the setData method
 	 */
-	public void parseData (String rawData) {
+	public void parseData (String rawData, String parseType) {
 
 		JSONObject mainObject = null;
-		JSONArray subObject = null;
 
 		try {
 			mainObject = new JSONObject(rawData);
-			Log.i(tag, rawData);
+//			Log.i(tag, rawData);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			if (mainObject != null) {
-				subObject = mainObject.getJSONArray("containers");
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		for (int i = 0; i < subObject.length(); i++) {
-
-			JSONObject dataObj = null;
+		if (parseType.matches("containers")) {
+			JSONArray subObject = null;
 			try {
-				if (subObject != null) {
-					dataObj = subObject.getJSONObject(i);
+				if (mainObject != null) {
+					subObject = mainObject.getJSONArray("containers");
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-					String containerType = dataObj.getString("type");
-					String containerLength = dataObj.getString("length");
-					String containerWidth = dataObj.getString("width");
-					String containerHeight = dataObj.getString("height");
+			for (int i = 0; i < subObject.length(); i++) {
 
-					Log.i(tag, containerType.toString());
-					Log.i(tag, containerLength.toString());
-					Log.i(tag, containerWidth.toString());
-					Log.i(tag, containerHeight.toString());
+				JSONObject dataObj = null;
+				try {
+					if (subObject != null) {
+						dataObj = subObject.getJSONObject(i);
 
-					setData(containerType, containerLength, containerWidth, containerHeight);
-					((MainFragment) mainFrag).addData(containerType, containerLength, containerWidth, containerHeight);
+						String containerType = dataObj.getString("type");
+						String containerLength = dataObj.getString("length");
+						String containerWidth = dataObj.getString("width");
+						String containerHeight = dataObj.getString("height");
+
+/*						Log.i(tag, containerType.toString());
+						Log.i(tag, containerLength.toString());
+						Log.i(tag, containerWidth.toString());
+						Log.i(tag, containerHeight.toString());*/
+
+						setData(containerType, containerLength, containerWidth, containerHeight);
+						((MainFragment) mainFrag).addData(containerType, containerLength, containerWidth, containerHeight);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			((MainFragment) mainFrag).updateListView();
+		}
+		if (parseType.matches("weather")) {
+			JSONObject locationSubObject = null;
+			JSONObject historySubObject = null;
+			JSONObject historyDateSubObject = null;
+			JSONArray observationsSubObject = null;
+			JSONObject lowTempSubObject = null;
+			JSONObject highTempSubObject = null;
+			try {
+				if (mainObject != null) {
+					
+					locationSubObject = mainObject.getJSONObject("location");
+					historySubObject = mainObject.getJSONObject("history");
+					historyDateSubObject = historySubObject.getJSONObject("date");
+					observationsSubObject = historySubObject.getJSONArray("observations");
+					lowTempSubObject = observationsSubObject.getJSONObject(0);
+					highTempSubObject = observationsSubObject.getJSONObject(27);
+					
+					String location = locationSubObject.getString("city") + ", " + 
+							locationSubObject.getString("state");
+					String day = historyDateSubObject.getString("mday");
+					String month = historyDateSubObject.getString("mon");
+					String year = historyDateSubObject.getString("year");
+					String minTemp = lowTempSubObject.getString("tempi");
+					String maxTemp = highTempSubObject.getString("tempi");
+					setDataWeatherData(location, day, month, year, minTemp, maxTemp);
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		((MainFragment) mainFrag).updateListView();
 	}
 
 	/* setData is called at the end of the parseData method and saves each
@@ -277,6 +341,22 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		Containers newContainer = new Containers(type, length, width,
 				height);
 		containerList.add(newContainer);
+		return true;
+	}
+	
+	/* setData is called at the end of the parseData method and saves each
+	 * JSON object to a custom object in the activity
+	 */
+	public boolean setDataWeatherData (String thisLocation, String thisDay, String thisMonth, String thisYear, 
+			String thisLowTemp, String thisHighTemp) {
+		apiNum++;
+		Weather weatherData = new Weather(thisLocation, thisDay, thisMonth, thisYear, 
+				thisLowTemp, thisHighTemp);
+		weatherInfo.add(weatherData);
+		if (apiNum < 8) {
+			handleAPI(modifiedDate);
+		}
+		Log.i(tag, weatherInfo.toString());
 		return true;
 	}
 
@@ -310,7 +390,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		String preJson = "{'containers':[";
 		String contentJson = null;
 		String postJson = "]}";
-		Log.i(tag, "saveData method hit");
+//		Log.i(tag, "saveData method hit");
 		for (int i = 0; i < containerList.size(); i++) {
 			if (i == 0) {
 				contentJson = "{'type':" + "'" + containerList.get(i).type.toString() + "'" + "," +
@@ -329,8 +409,206 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 			}	
 		}
 		String fullJson = preJson + contentJson + postJson;
-		Log.i(tag, fullJson);
+//		Log.i(tag, fullJson);
 		fileManager.writeToFile(context, getResources().getString(R.string.container_file_name), fullJson);
 		checkForFile();
+	}
+	
+	// Calls API with correct date and location
+	public void handleAPI(String date) {
+		if (loc != null) {
+			// Check Network Connection and Show Error Notification if false
+			if (checkConnection(context) == true) {
+				
+				getAPIdata data = new getAPIdata();
+				String formattedURL = null;
+				
+				if (apiNum == 0) {
+					formattedURL = context.getString(R.string.api_prehistory) + date + 
+							context.getString(R.string.api_precoord) + latit + "," + longit +
+							context.getString(R.string.api_end);
+//					Log.i(tag, formattedURL);
+					modifiedDate = date;
+				} else {
+					String subDayStr = modifiedDate.substring(6, 8);
+					Integer subDayNum = Integer.parseInt(subDayStr);
+					Log.i(tag, "Day: " + subDayStr);
+					String subMonStr = modifiedDate.substring(4, 6);
+					Integer subMonNum = Integer.parseInt(subMonStr);
+					Log.i(tag, "Month: " + subMonStr);
+					String subYearStr = modifiedDate.substring(0, 4);
+					Integer subyearNum = Integer.parseInt(subYearStr);
+					Log.i(tag, "Year: " + subYearStr);
+					
+					if (apiNum == 1 || apiNum == 3 || apiNum == 5 || 
+							apiNum == 7) {
+						if (subMonNum <= 2) {
+							if (subMonNum == 1) {
+								subMonNum = 11;
+							}
+							if (subMonNum == 2) {
+								subMonNum = 12;
+							}
+							subyearNum = subyearNum - 1;
+						} else {
+							subMonNum = subMonNum - 2;
+						}
+						subDayNum = 15;
+						
+					} else {
+						if (subMonNum == 1) {
+							subMonNum = 12;
+							subyearNum = subyearNum - 1;
+						} else {
+							subMonNum = subMonNum - 2;
+						}
+						subDayNum = 01;
+					}
+					
+					if (subDayNum < 10) {
+						subDayStr = "0" + subDayNum.toString();
+					} else {
+						subDayStr = subDayNum.toString();
+					}
+					if (subMonNum < 10) {
+						subMonStr = "0" + subMonNum.toString();
+					} else {
+						subMonStr = subMonNum.toString();
+					}
+					
+					modifiedDate = subyearNum.toString() + subMonStr + subDayStr;
+					Log.i(tag, modifiedDate);
+					
+					formattedURL = context.getString(R.string.api_prehistory) + subyearNum.toString() + 
+							subMonStr + subDayStr + context.getString(R.string.api_precoord) + latit + 
+							"," + longit + context.getString(R.string.api_end);
+				}
+				
+				try {
+					url = new URL(formattedURL);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				Log.i(tag, formattedURL);
+				data.execute(formattedURL);
+				
+			} else {
+				Toast.makeText(context, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
+				Log.i(tag, "No Internet Connection");
+			}
+		}
+	}
+
+	// Check Network Connection Method
+	public Boolean checkConnection (Context context) {
+		Boolean connected = false;
+		ConnectivityManager connManag = (ConnectivityManager) context
+				.getSystemService
+				(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfomation = connManag.getActiveNetworkInfo();
+		if (networkInfomation != null) {
+			if (networkInfomation.isConnected()) {
+				Log.i(tag, "Connection Type: " + networkInfomation.getTypeName()
+						.toString());
+				connected = true;
+			}
+		}
+		return connected;
+	}
+
+	// API Method
+	public String getAPIresponse(URL url) {
+		String apiResponse = "";
+		try {
+			URLConnection apiConnection = url.openConnection();
+			BufferedInputStream bufferedInput = new BufferedInputStream(apiConnection
+					.getInputStream());
+			byte[] contextByte = new byte[1024];
+			int bytesRead = 0;
+			StringBuffer responseBuffer = new StringBuffer();
+			while ((bytesRead = bufferedInput.read(contextByte)) != -1) {
+				apiResponse = new String(contextByte, 0, bytesRead);
+				responseBuffer.append(apiResponse);
+			}
+			apiResponse = responseBuffer.toString();
+			//			Log.i(tag, apiResponse);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.i(tag, "getAPIresponse - no data returned");
+			e.printStackTrace();
+		}
+//		Log.i(tag, apiResponse.toString());
+		return apiResponse;
+	}
+
+	// API Class
+	class getAPIdata extends AsyncTask<String, Void, String> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			String APIresponseStr = "";
+
+			if (url != null) {
+				APIresponseStr = getAPIresponse(url);
+				return APIresponseStr;
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			//			Log.i(tag, result);
+			super.onPostExecute(result);
+
+//			Log.i(tag, result);
+			// Parse Methods Called based after API has returned data
+			parseData(result, "weather");
+		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		Log.i(tag, "Latitude: " + location.toString() + ", " + "Longitude: " + location.toString());
+		
+		// Get current date
+		 Date date = new Date();
+		 CharSequence currentDate  = DateFormat.format("yyyyMMdd", date.getTime());
+		 Log.i(tag, currentDate.toString());
+		 
+		 latit = String.valueOf(location.getLatitude());
+		 longit = String.valueOf(location.getLongitude());
+		
+		handleAPI(currentDate.toString());
+	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -35,5 +35,8 @@
     <string name="fish_file_name">fish.json</string>
     <string name="plants_file_name">plants.json</string>
     <string name="container_file_name">container.txt</string>
+    <string name="api_prehistory">http://api.wunderground.com/api/ebc8bf3dacbbd512/history_</string>
+    <string name="api_precoord">/geolookup/q/</string>
+    <string name="api_end">.json</string>
 
 </resources>
