@@ -156,10 +156,10 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 				String plantMaxTemp = plantObject.getString("maxtemp");
 				String plantImage = plantObject.getString("image");
 				String plantEdible = plantObject.getString("edible");
-				Log.i(tag, plantName);
+/*				Log.i(tag, plantName);
 				Log.i(tag, plantMinTemp);
 				Log.i(tag, plantMaxTemp);
-				Log.i(tag, plantImage);
+				Log.i(tag, plantImage);*/
 				Integer minTempInt = Integer.parseInt(plantMinTemp);
 				Integer maxTempInt = Integer.parseInt(plantMaxTemp);
 

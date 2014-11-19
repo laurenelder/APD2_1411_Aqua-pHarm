@@ -139,20 +139,156 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		int tabIndex = tab.getPosition();
+		
 		if (tabIndex == 0) {
 			switched = true;
 		}
-		if (tabIndex == 1) {
-			//			switched = true;
-			if (switched == true) {
-				Intent fishIntent = new Intent(context, FishActivity.class);
-				startActivity(fishIntent);
+		
+		ArrayList<Double> annualLowTemps = new ArrayList<Double>();
+		ArrayList<Double> annualHighTemps = new ArrayList<Double>();
+		ArrayList<Double> winterLowTemps = new ArrayList<Double>();
+		ArrayList<Double> winterHighTemps = new ArrayList<Double>();
+		ArrayList<Double> springLowTemps = new ArrayList<Double>();
+		ArrayList<Double> springHighTemps = new ArrayList<Double>();
+		ArrayList<Double> summerLowTemps = new ArrayList<Double>();
+		ArrayList<Double> summerHighTemps = new ArrayList<Double>();
+		ArrayList<Double> fallLowTemps = new ArrayList<Double>();
+		ArrayList<Double> fallHighTemps = new ArrayList<Double>();
+		Double annualLowAverage = 0.0;
+		Double annualHighAverage = 0.0;
+		Double winterLowAverage = 0.0;
+		Double winterHighAverage = 0.0;
+		Double springLowAverage = 0.0;
+		Double springHighAverage = 0.0;
+		Double summerLowAverage = 0.0;
+		Double summerHighAverage = 0.0;
+		Double fallLowAverage = 0.0;
+		Double fallHighAverage = 0.0;
+		
+		if (!weatherInfo.isEmpty()) {
+			for (int u = 0; u < weatherInfo.size(); u++) {
+				Double lowTemp = 0.0;
+				Double highTemp = 0.0;
+				String lowTempStr = weatherInfo.get(u).lowTemp.toString();
+				String highTempStr = weatherInfo.get(u).highTemp.toString();
+				try {
+					lowTemp = Double.parseDouble(lowTempStr);
+					highTemp = Double.parseDouble(highTempStr);
+				} catch(NumberFormatException nfe) {
+				   System.out.println("Could not parse " + nfe);
+				} 
+				annualLowTemps.add(lowTemp);
+				annualHighTemps.add(highTemp);
+				if (weatherInfo.get(u).month.toString().matches("12") || 
+						weatherInfo.get(u).month.toString().matches("01") || 
+						weatherInfo.get(u).month.toString().matches("02")) {
+					winterLowTemps.add(lowTemp);
+					winterHighTemps.add(highTemp);
+				}
+				if (weatherInfo.get(u).month.toString().matches("03") || 
+						weatherInfo.get(u).month.toString().matches("04") || 
+						weatherInfo.get(u).month.toString().matches("05")) {
+					springLowTemps.add(lowTemp);
+					springHighTemps.add(highTemp);
+				}
+				if (weatherInfo.get(u).month.toString().matches("06") || 
+						weatherInfo.get(u).month.toString().matches("07") || 
+						weatherInfo.get(u).month.toString().matches("08")) {
+					summerLowTemps.add(lowTemp);
+					summerHighTemps.add(highTemp);
+				}
+				if (weatherInfo.get(u).month.toString().matches("09") || 
+						weatherInfo.get(u).month.toString().matches("10") || 
+						weatherInfo.get(u).month.toString().matches("11")) {
+					fallLowTemps.add(lowTemp);
+					fallHighTemps.add(highTemp);
+				}
 			}
-		}
-		if (tabIndex == 2) {
-			if (switched == true) {
-				Intent plantsIntent = new Intent(context, PlantsActivity.class);
-				startActivity(plantsIntent);
+			
+			for (int t = 0; t < annualLowTemps.size(); t++) {
+				annualLowAverage = annualLowAverage + annualLowTemps.get(t);
+				annualHighAverage = annualHighAverage + annualHighTemps.get(t);
+			}
+			
+			for (int q = 0; q < winterLowTemps.size(); q++) {
+				winterLowAverage = winterLowAverage + winterLowTemps.get(q);
+				winterHighAverage = winterHighAverage + winterHighTemps.get(q);
+			}
+			
+			for (int w = 0; w < springLowTemps.size(); w++) {
+				springLowAverage = springLowAverage + springLowTemps.get(w);
+				springHighAverage = springHighAverage + springHighTemps.get(w);
+			}
+			
+			for (int e = 0; e < summerLowTemps.size(); e++) {
+				summerLowAverage = summerLowAverage + summerLowTemps.get(e);
+				summerHighAverage = summerHighAverage + summerHighTemps.get(e);
+			}
+			
+			for (int r = 0; r < fallLowTemps.size(); r++) {
+				fallLowAverage = fallLowAverage + fallLowTemps.get(r);
+				fallHighAverage = fallHighAverage + fallHighTemps.get(r);
+			}
+			
+			annualLowAverage = annualLowAverage / annualLowTemps.size();
+			annualHighAverage = annualHighAverage / annualHighTemps.size();
+			winterLowAverage = winterLowAverage / winterLowTemps.size();
+			winterHighAverage = winterHighAverage / winterHighTemps.size();
+			springLowAverage = springLowAverage / springLowTemps.size();
+			springHighAverage = springHighAverage / springHighTemps.size();
+			summerLowAverage = summerLowAverage / summerLowTemps.size();
+			summerHighAverage = summerHighAverage / summerHighTemps.size();
+			fallLowAverage = fallLowAverage / fallLowTemps.size();
+			fallHighAverage = fallHighAverage / fallHighTemps.size();
+			
+			
+			
+			if (tabIndex == 1) {
+				//			switched = true;
+				if (weatherInfo.size() == 8) {
+					if (switched == true) {
+						Intent fishIntent = new Intent(context, FishActivity.class);
+						fishIntent.putExtra("annualLowAverage", annualLowAverage);
+						fishIntent.putExtra("annualHighAverage", annualHighAverage);
+						fishIntent.putExtra("winterLowAverage", winterLowAverage);
+						fishIntent.putExtra("winterHighAverage", winterHighAverage);
+						fishIntent.putExtra("springLowAverage", springLowAverage);
+						fishIntent.putExtra("springHighAverage", springHighAverage);
+						fishIntent.putExtra("summerLowAverage", summerLowAverage);
+						fishIntent.putExtra("summerHighAverage", summerHighAverage);
+						fishIntent.putExtra("fallLowAverage", fallLowAverage);
+						fishIntent.putExtra("fallHighAverage", fallHighAverage);
+						Log.i(tag, "Annual Average Low Temp: " + String.valueOf(annualLowAverage));
+						Log.i(tag, "Annual Average High Temp: " + String.valueOf(annualHighAverage));
+						Log.i(tag, "Winter Average Low Temp: " + String.valueOf(winterLowAverage));
+						Log.i(tag, "Winter Average High Temp: " + String.valueOf(winterHighAverage));
+						Log.i(tag, "Spring Average Low Temp: " + String.valueOf(springLowAverage));
+						Log.i(tag, "Spring Average High Temp: " + String.valueOf(springHighAverage));
+						Log.i(tag, "Summer Average Low Temp: " + String.valueOf(summerLowAverage));
+						Log.i(tag, "Summer Average High Temp: " + String.valueOf(summerHighAverage));
+						Log.i(tag, "Fall Average Low Temp: " + String.valueOf(fallLowAverage));
+						Log.i(tag, "Fall Average High Temp: " + String.valueOf(fallHighAverage));
+						startActivity(fishIntent);
+					}
+				}
+			}
+			if (tabIndex == 2) {
+				if (weatherInfo.size() == 8) {
+					if (switched == true) {
+						Intent plantsIntent = new Intent(context, PlantsActivity.class);
+						plantsIntent.putExtra("annualLowAverage", annualLowAverage);
+						plantsIntent.putExtra("annualHighAverage", annualHighAverage);
+						plantsIntent.putExtra("winterLowAverage", winterLowAverage);
+						plantsIntent.putExtra("winterHighAverage", winterHighAverage);
+						plantsIntent.putExtra("springLowAverage", springLowAverage);
+						plantsIntent.putExtra("springHighAverage", springHighAverage);
+						plantsIntent.putExtra("summerLowAverage", summerLowAverage);
+						plantsIntent.putExtra("summerHighAverage", summerHighAverage);
+						plantsIntent.putExtra("fallLowAverage", fallLowAverage);
+						plantsIntent.putExtra("fallHighAverage", fallHighAverage);
+						startActivity(plantsIntent);
+					}
+				}
 			}
 		}
 	}
@@ -356,6 +492,8 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		apiNum++;
 		Weather weatherData = new Weather(thisLocation, thisDay, thisMonth, thisYear, 
 				thisLowTemp, thisHighTemp);
+		Log.i(tag, "Low Temp: " + thisLowTemp);
+		Log.i(tag, "High Temp: " + thisHighTemp);
 		weatherInfo.add(weatherData);
 		if (apiNum < 8) {
 			handleAPI(modifiedDate);

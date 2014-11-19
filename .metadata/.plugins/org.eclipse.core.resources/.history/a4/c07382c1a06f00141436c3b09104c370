@@ -1,0 +1,154 @@
+package com.laurenelder.aquapharm;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+public class FishFragment extends Fragment {
+	
+	Context context;
+	String tag = "FISH FRAGMENT";
+	ImageView fishPic;
+	ImageView annualTemp;
+	ImageView winterTemp;
+	ImageView springTemp;
+	ImageView summerTemp;
+	ImageView fallTemp;
+	TextView fishEdible;
+	int spinnerViewPosition = 0;
+	
+	// Interface to FishActivity methods
+		public interface OnSelected {
+			public ArrayList getData(int pos);
+			public ArrayList<Double> getTemps();
+		}
+		
+		private OnSelected parentActivity;
+
+		@Override
+		public void onAttach(Activity activity) {
+			// TODO Auto-generated method stub
+			super.onAttach(activity);
+			context = getActivity();
+			
+			if(activity instanceof OnSelected) {
+				parentActivity = (OnSelected) activity;
+
+			} else {
+				throw new ClassCastException((activity.toString()) + "Did not impliment onSelected interface");
+			}
+		}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View fishView = inflater.inflate(R.layout.activity_fish, container);
+		
+		context = getActivity();
+		
+		fishPic = (ImageView)fishView.findViewById(R.id.fishImage);
+		annualTemp = (ImageView)fishView.findViewById(R.id.fishOverallColor);
+		winterTemp = (ImageView)fishView.findViewById(R.id.fishWinterColor);
+		springTemp = (ImageView)fishView.findViewById(R.id.fishSpringColor);
+		summerTemp = (ImageView)fishView.findViewById(R.id.fishSummerColor);
+		fallTemp = (ImageView)fishView.findViewById(R.id.fishFallColor);
+		fishEdible = (TextView)fishView.findViewById(R.id.fishEatable);
+		
+		Spinner fishSpinner = (Spinner) fishView.findViewById(R.id.fishSpinner);
+		List<String> fish = new ArrayList<String>();
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
+				android.R.layout.simple_spinner_item, fish);
+		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		fishSpinner.setAdapter(spinnerAdapter);
+		
+		fish.add("Blue Gill");
+		fish.add("Catfish");
+		fish.add("Cichlids");
+		fish.add("Gold Fish");
+		fish.add("Koi");
+		fish.add("Lake Trout");
+		fish.add("Land Locked Salmon");
+		fish.add("Large Mouth Bass");
+		fish.add("Minnows");
+		fish.add("Rainbow Trout");
+		fish.add("Small Mouth Bass");
+		fish.add("Tilapia");
+		fish.add("White Perch");
+		fish.add("Yellow Perch");
+
+		spinnerAdapter.notifyDataSetChanged();
+		
+		fishSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				spinnerViewPosition = position;
+				
+				String imageName = parentActivity.getData(position).get(3).toString();
+				imageName = imageName.substring(0, imageName.length() - 4);
+				Log.i(tag, imageName);
+				
+				int resID = getResources().getIdentifier(imageName, "raw", "com.laurenelder.aquapharm");
+				fishPic.setImageResource(resID);
+				
+				if (parentActivity.getData(position).get(4).toString().matches("yes")) {
+					fishEdible.setText("Edible");
+				} else {
+					fishEdible.setText("Uneatable");
+				}
+				
+				updateColors();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		return fishView;
+	}
+
+	public static int getStringIdentifier(Context thisContext, String name) {
+	    return thisContext.getResources().getIdentifier(name, "string", thisContext.getPackageName());
+	}
+	
+	public void updateColors() {
+		for (int z = 0; z < 10; z++) {
+			Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
+		}
+	}
+/*		if (annualLowAverage > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) && 
+				annualHighAverage < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+				annualTemp.setBackgroundResource(R.color.green);	
+		}
+		if (annualLowAverage > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				annualHighAverage < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				annualTemp.setBackgroundResource(R.color.yellow);	
+		}
+		if (annualLowAverage < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				annualHighAverage > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				annualTemp.setBackgroundResource(R.color.red);	
+		}
+	}*/
+	
+}

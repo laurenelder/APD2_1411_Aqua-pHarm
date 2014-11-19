@@ -20,12 +20,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TextView;
 
 public class PlantsFragment extends Fragment {
 	
 	Context context;
 	String tag = "PLANTS FRAGMENT";
 	ImageView plantPic;
+	TextView plantEdible;
 	
 	// Interface to PlantsActivity methods
 			public interface OnSelected {
@@ -58,6 +60,7 @@ public class PlantsFragment extends Fragment {
 		context = getActivity();
 		
 		plantPic = (ImageView)plantsView.findViewById(R.id.plantImage);
+		plantEdible = (TextView)plantsView.findViewById(R.id.plantEatable);
 		
 		Spinner plantsSpinner = (Spinner) plantsView.findViewById(R.id.plantSpinner);
 		List<String> plants = new ArrayList<String>();
@@ -122,6 +125,12 @@ public class PlantsFragment extends Fragment {
 				int resID = getResources().getIdentifier(imageName, "raw", "com.laurenelder.aquapharm");
 				
 				plantPic.setImageResource(resID);
+				
+				if (parentActivity.getData(position).get(4).toString().matches("yes")) {
+					plantEdible.setText("Edible");
+				} else {
+					plantEdible.setText("Uneatable");
+				}
 			}
 
 			@Override

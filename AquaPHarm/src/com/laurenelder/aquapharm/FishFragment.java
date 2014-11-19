@@ -16,51 +16,66 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class FishFragment extends Fragment {
-	
+
 	Context context;
 	String tag = "FISH FRAGMENT";
 	ImageView fishPic;
-	
+	ImageView annualTemp;
+	ImageView winterTemp;
+	ImageView springTemp;
+	ImageView summerTemp;
+	ImageView fallTemp;
+	TextView fishEdible;
+	int spinnerViewPosition = 0;
+
 	// Interface to FishActivity methods
-		public interface OnSelected {
-			public ArrayList getData(int pos);
-		}
-		
-		private OnSelected parentActivity;
+	public interface OnSelected {
+		public ArrayList getData(int pos);
+		public ArrayList<Double> getTemps();
+	}
 
-		@Override
-		public void onAttach(Activity activity) {
-			// TODO Auto-generated method stub
-			super.onAttach(activity);
-			context = getActivity();
-			
-			if(activity instanceof OnSelected) {
-				parentActivity = (OnSelected) activity;
+	private OnSelected parentActivity;
 
-			} else {
-				throw new ClassCastException((activity.toString()) + "Did not impliment onSelected interface");
-			}
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		context = getActivity();
+
+		if(activity instanceof OnSelected) {
+			parentActivity = (OnSelected) activity;
+
+		} else {
+			throw new ClassCastException((activity.toString()) + "Did not impliment onSelected interface");
 		}
-	
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View fishView = inflater.inflate(R.layout.activity_fish, container);
-		
+
 		context = getActivity();
-		
+
 		fishPic = (ImageView)fishView.findViewById(R.id.fishImage);
-		
+		annualTemp = (ImageView)fishView.findViewById(R.id.fishOverallColor);
+		winterTemp = (ImageView)fishView.findViewById(R.id.fishWinterColor);
+		springTemp = (ImageView)fishView.findViewById(R.id.fishSpringColor);
+		summerTemp = (ImageView)fishView.findViewById(R.id.fishSummerColor);
+		fallTemp = (ImageView)fishView.findViewById(R.id.fishFallColor);
+		fishEdible = (TextView)fishView.findViewById(R.id.fishEatable);
+
 		Spinner fishSpinner = (Spinner) fishView.findViewById(R.id.fishSpinner);
 		List<String> fish = new ArrayList<String>();
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
 				android.R.layout.simple_spinner_item, fish);
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		fishSpinner.setAdapter(spinnerAdapter);
-		
+
 		fish.add("Blue Gill");
 		fish.add("Catfish");
 		fish.add("Cichlids");
@@ -77,35 +92,150 @@ public class FishFragment extends Fragment {
 		fish.add("Yellow Perch");
 
 		spinnerAdapter.notifyDataSetChanged();
-		
+
 		fishSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				
+				spinnerViewPosition = position;
+
 				String imageName = parentActivity.getData(position).get(3).toString();
 				imageName = imageName.substring(0, imageName.length() - 4);
-				Log.i(tag, imageName);
-				
+				//				Log.i(tag, imageName);
+
 				int resID = getResources().getIdentifier(imageName, "raw", "com.laurenelder.aquapharm");
 				fishPic.setImageResource(resID);
+
+				if (parentActivity.getData(position).get(4).toString().matches("yes")) {
+					fishEdible.setText("Edible");
+				} else {
+					fishEdible.setText("Uneatable");
+				}
+
+				updateColors();
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		return fishView;
 	}
 
 	public static int getStringIdentifier(Context thisContext, String name) {
-	    return thisContext.getResources().getIdentifier(name, "string", thisContext.getPackageName());
+		return thisContext.getResources().getIdentifier(name, "string", thisContext.getPackageName());
 	}
-	
+
+	public void updateColors() {
+		ArrayList<Integer> temps = new ArrayList<Integer>();
+		for (int z = 0; z < 10; z++) {
+			Integer value = parentActivity.getTemps().get(z).intValue();
+			temps.add(value);
+			//		Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
+			//			Log.i(tag, value.toString());
+		}
+		Log.i(tag, parentActivity.getData(spinnerViewPosition).get(1).toString());
+		// Annual Field
+		if (temps.get(0) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(1) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			annualTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(0) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(1) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(0) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
+					temps.get(1) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+				annualTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(0) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(1) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			annualTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Winter Field
+		if (temps.get(2) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(3) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			winterTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(2) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(3) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(2) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
+					temps.get(3) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+				winterTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(2) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(3) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			winterTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Spring Field
+		if (temps.get(4) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(5) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			springTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(4) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(5) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(4) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
+					temps.get(5) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+				springTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(4) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(5) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			springTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Summer Field
+		if (temps.get(6) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(7) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			summerTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(6) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(7) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(6) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
+					temps.get(7) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+				summerTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(6) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(7) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			summerTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Fall Field
+		if (temps.get(8) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(9) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			fallTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(8) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(9) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(8) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
+					temps.get(9) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+				fallTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(8) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(9) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			fallTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+	}
+
 }
