@@ -57,7 +57,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 		fishIntent = this.getIntent();
 
 		if (fishIntent.hasExtra("annualLowAverage")) {
-			annualLowAverage = fishIntent.getDoubleExtra("", annualLowAverage);
+			annualLowAverage = fishIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
 			annualHighAverage = fishIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
 			winterLowAverage = fishIntent.getDoubleExtra("winterLowAverage", winterLowAverage);
 			winterHighAverage = fishIntent.getDoubleExtra("winterHighAverage", winterHighAverage);

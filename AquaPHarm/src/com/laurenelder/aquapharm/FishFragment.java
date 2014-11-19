@@ -149,8 +149,8 @@ public class FishFragment extends Fragment {
 		}
 		if (temps.get(0) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
 				temps.get(1) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
-			if (temps.get(0) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
-					temps.get(1) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+			if (temps.get(0) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(1) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
 				annualTemp.setBackgroundResource(R.color.yellow);	
 				Log.i(tag, "Color should be yellow");
 			}
@@ -168,8 +168,8 @@ public class FishFragment extends Fragment {
 		}
 		if (temps.get(2) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
 				temps.get(3) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
-			if (temps.get(2) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
-					temps.get(3) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+			if (temps.get(2) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(3) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
 				winterTemp.setBackgroundResource(R.color.yellow);	
 				Log.i(tag, "Color should be yellow");
 			}
@@ -187,8 +187,8 @@ public class FishFragment extends Fragment {
 		}
 		if (temps.get(4) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
 				temps.get(5) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
-			if (temps.get(4) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
-					temps.get(5) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+			if (temps.get(4) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(5) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
 				springTemp.setBackgroundResource(R.color.yellow);	
 				Log.i(tag, "Color should be yellow");
 			}
@@ -206,8 +206,8 @@ public class FishFragment extends Fragment {
 		}
 		if (temps.get(6) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
 				temps.get(7) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
-			if (temps.get(6) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
-					temps.get(7) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+			if (temps.get(6) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(7) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
 				summerTemp.setBackgroundResource(R.color.yellow);	
 				Log.i(tag, "Color should be yellow");
 			}
@@ -225,8 +225,8 @@ public class FishFragment extends Fragment {
 		}
 		if (temps.get(8) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
 				temps.get(9) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
-			if (temps.get(8) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) || 
-					temps.get(9) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString())) {
+			if (temps.get(8) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(9) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
 				fallTemp.setBackgroundResource(R.color.yellow);	
 				Log.i(tag, "Color should be yellow");
 			}

@@ -60,6 +60,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 	String modifiedDate;
 	String latit;
 	String longit;
+	ActionBar actionBar;
 	List <Containers> containerList = new ArrayList<Containers>();
 	List <Weather> weatherInfo = new ArrayList<Weather>();
 
@@ -71,7 +72,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		context = this;
 		switched = false;
 
-		ActionBar actionBar = getActionBar();
+		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		Tab actionBarTab = actionBar.newTab();
@@ -290,6 +291,11 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 					}
 				}
 			}
+		} else {
+			if (switched == true) {
+				actionBar.setSelectedNavigationItem(0);
+			}
+			
 		}
 	}
 
@@ -579,11 +585,45 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 				String formattedURL = null;
 				
 				if (apiNum == 0) {
-					formattedURL = context.getString(R.string.api_prehistory) + date + 
-							context.getString(R.string.api_precoord) + latit + "," + longit +
-							context.getString(R.string.api_end);
-//					Log.i(tag, formattedURL);
 					modifiedDate = date;
+					String subDayStr = modifiedDate.substring(6, 8);
+					Integer subDayNum = Integer.parseInt(subDayStr);
+					Log.i(tag, "Day: " + subDayStr);
+					String subMonStr = modifiedDate.substring(4, 6);
+					Integer subMonNum = Integer.parseInt(subMonStr);
+					Log.i(tag, "Month: " + subMonStr);
+					String subYearStr = modifiedDate.substring(0, 4);
+					Integer subYearNum = Integer.parseInt(subYearStr);
+					
+					if (subDayNum == 1) {
+						if (subMonNum == 1) {
+							subDayNum = 30;
+							subMonNum = 12;
+							subYearNum = subYearNum - 1;
+						} else {
+							subDayNum = 28;
+							subMonNum = subMonNum - 1;
+						}
+					} else {
+						subDayNum = subDayNum - 1;
+					}
+					if (subDayNum < 10) {
+						subDayStr = "0" + subDayNum.toString();
+					} else {
+						subDayStr = subDayNum.toString();
+					}
+					if (subMonNum < 10) {
+						subMonStr = "0" + subMonNum.toString();
+					} else {
+						subMonStr = subMonNum.toString();
+					}
+					subYearStr = subYearNum.toString();
+					
+					formattedURL = context.getString(R.string.api_prehistory) + subYearStr + subMonStr
+							 + subDayStr + context.getString(R.string.api_precoord) + latit + "," + 
+							longit + context.getString(R.string.api_end);
+//					Log.i(tag, formattedURL);
+//					modifiedDate = date;
 				} else {
 					String subDayStr = modifiedDate.substring(6, 8);
 					Integer subDayNum = Integer.parseInt(subDayStr);
