@@ -47,6 +47,7 @@ public class MainFragment extends Fragment {
 	public interface mainInterface {
 		public void startContainerActivity(int pos);
 		public Double getTotalCapacity();
+		public Double getContainerCapacity(int pos);
 		public Double getCycleRate(Integer flow);
 	}
 
@@ -112,8 +113,7 @@ public class MainFragment extends Fragment {
 		});
 
 		// Setup ListView
-		listAdapter = new ArrayAdapter<Containers> 
-		(context, android.R.layout.simple_list_item_1, containerList);
+		listAdapter = new customListAdapter();
 		containerListView.setAdapter(listAdapter);
 
 		containerListView.setOnItemClickListener(new OnItemClickListener() {
@@ -167,4 +167,33 @@ public class MainFragment extends Fragment {
 			containerList.removeAll(containerList);
 		}
 	}
+	
+	// Custom ListAdapter Class
+    public class customListAdapter extends ArrayAdapter <Containers> {
+    	public customListAdapter() {
+    		super(context, R.layout.list_item, containerList);
+    	}
+
+    	// Set List Item Information
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View customItemView = convertView;
+			
+			if (customItemView == null) {
+				LayoutInflater viewInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				customItemView = viewInflater.inflate(R.layout.list_item, parent, false);
+			}
+			
+			TextView containerTitleLabel = (TextView)customItemView.findViewById(R.id.list_item_title);
+			TextView containerCapacityLabel = (TextView)customItemView.findViewById(R.id.list_item_capacity);
+			
+			Double itemCapacity = mainActivity.getContainerCapacity(position);
+			String itemCapacityStr = String.format("%.1f", itemCapacity) + " Gallons";
+			
+			containerTitleLabel.setText(containerList.get(position).type.toString());
+			containerCapacityLabel.setText(itemCapacityStr);
+			
+			return customItemView;
+		}
+    }
 }

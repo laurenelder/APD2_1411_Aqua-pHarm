@@ -36,8 +36,8 @@ public final class R {
         public static final int ic_launcher=0x7f020006;
     }
     public static final class id {
-        public static final int action_item_one=0x7f0a0024;
-        public static final int action_item_two=0x7f0a0025;
+        public static final int action_item_one=0x7f0a0026;
+        public static final int action_item_two=0x7f0a0027;
         public static final int addContainerFrag=0x7f0a001f;
         public static final int bedOutput=0x7f0a0015;
         public static final int container=0x7f0a001e;
@@ -62,6 +62,8 @@ public final class R {
         public static final int fishWinterColor=0x7f0a000e;
         public static final int linearLayout=0x7f0a0011;
         public static final int list=0x7f0a0012;
+        public static final int list_item_capacity=0x7f0a0025;
+        public static final int list_item_title=0x7f0a0024;
         public static final int mainFrag=0x7f0a0022;
         public static final int plantEatable=0x7f0a001d;
         public static final int plantFallColor=0x7f0a001a;
@@ -86,6 +88,7 @@ public final class R {
         public static final int fragment_fish=0x7f030007;
         public static final int fragment_main=0x7f030008;
         public static final int fragment_plants=0x7f030009;
+        public static final int list_item=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f090000;

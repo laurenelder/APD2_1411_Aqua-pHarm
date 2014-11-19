@@ -33,9 +33,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -376,6 +380,19 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		}
 		return cap;
 	}
+	
+	public Double getContainerCapacity(int pos) {
+		Integer cuInches = Integer.parseInt(containerList.get(pos).length) * 
+				Integer.parseInt(containerList.get(pos).width) * 
+				Integer.parseInt(containerList.get(pos).height);
+		Log.i(tag, cuInches.toString());
+
+		Double cuFoot = cuInches / 1728.00;
+
+		Double gallons = 7.48 * cuFoot;
+		
+		return gallons;
+	}
 
 	public Double getCycleRate(Integer flow) {
 		Double cycleRate = cap / flow;
@@ -611,4 +628,6 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		// TODO Auto-generated method stub
 		
 	}
+	
+
 }
