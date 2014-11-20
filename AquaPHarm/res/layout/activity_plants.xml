@@ -43,7 +43,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/green"
             android:contentDescription="@string/spring_icon"
             android:layout_gravity="right" />
         
@@ -70,7 +69,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/green"
             android:contentDescription="@string/summer_icon"
             android:layout_gravity="right" />
         
@@ -97,7 +95,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/green"
             android:contentDescription="@string/fall_icon"
             android:layout_gravity="right" />
         
@@ -124,7 +121,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/yellow"
             android:contentDescription="@string/winter_icon"
             android:layout_gravity="right" />
         
@@ -151,7 +147,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="0"
-            android:background="@color/green"
             android:contentDescription="@string/overall_icon"
             android:layout_gravity="right" />
         

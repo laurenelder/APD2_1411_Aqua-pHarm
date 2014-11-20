@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		context = this;
 		switched = false;
 
-		actionBar = getActionBar();
+/*		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		Tab actionBarTab = actionBar.newTab();
@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
 		actionBar.addTab(actionBarTab);
 
-		actionBar.setSelectedNavigationItem(0);
+		actionBar.setSelectedNavigationItem(0);*/
 
 		// Setup FragmentManager to call methods in FormFragment
 		fragMgr = getFragmentManager();
@@ -505,6 +505,7 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 			handleAPI(modifiedDate);
 		}
 		Log.i(tag, weatherInfo.toString());
+		addTabs();
 		return true;
 	}
 
@@ -805,6 +806,24 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		handleAPI(currentDate.toString());
 	}
 
+	public void addTabs() {
+		if (apiNum == 8) {
+			actionBar = getActionBar();
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+			Tab actionBarTab = actionBar.newTab();
+			actionBarTab.setText(R.string.actionbar_buildsystem).setTabListener(this);
+			actionBar.addTab(actionBarTab);
+			actionBarTab = actionBar.newTab();
+			actionBarTab.setText(R.string.actionbar_fish).setTabListener(this);
+			actionBar.addTab(actionBarTab);
+			actionBarTab = actionBar.newTab();
+			actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
+			actionBar.addTab(actionBarTab);
+
+			actionBar.setSelectedNavigationItem(0);
+		}
+	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
