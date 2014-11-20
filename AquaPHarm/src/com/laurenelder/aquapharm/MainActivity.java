@@ -537,11 +537,30 @@ public class MainActivity extends Activity implements TabListener, MainFragment.
 		
 		return gallons;
 	}
+	
+	public Double getTotalBedCapacity() {
+		Double bedCapacity = 0.00;
+		for (int x = 0; x < containerList.size(); x++) {
+			if (containerList.get(x).type.matches("Grow Bed")) {
+				Integer cuInches = Integer.parseInt(containerList.get(x).length) * 
+						Integer.parseInt(containerList.get(x).width) * 
+						Integer.parseInt(containerList.get(x).height);
+				Log.i(tag, cuInches.toString());
 
-	public Double getCycleRate(Integer flow) {
-		Double cycleRate = cap / flow;
-		return cycleRate;
+				Double cuFoot = cuInches / 1728.00;
+
+				Double gallons = 7.48 * cuFoot;
+				
+				bedCapacity = bedCapacity + gallons;
+			}
+		}
+		return bedCapacity;
 	}
+
+/*	public Double getCycleRate(Integer flow) {
+		Double cycleRate = flow / getTotalBedCapacity();
+		return cycleRate;
+	}*/
 
 	/* saveData method is called by the action bar button.
 	 * This method builds a JSON file from the objects store within custom

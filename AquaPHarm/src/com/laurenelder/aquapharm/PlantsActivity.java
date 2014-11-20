@@ -11,6 +11,8 @@ import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +28,19 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	FileManager fileManager;
 	boolean switched;
 	String fileName;
+	Intent plantIntent;
+	FragmentManager fragMgr;
+	Fragment plantFrag;
+	Double annualLowAverage = 0.0;
+	Double annualHighAverage = 0.0;
+	Double winterLowAverage = 0.0;
+	Double winterHighAverage = 0.0;
+	Double springLowAverage = 0.0;
+	Double springHighAverage = 0.0;
+	Double summerLowAverage = 0.0;
+	Double summerHighAverage = 0.0;
+	Double fallLowAverage = 0.0;
+	Double fallHighAverage = 0.0;
 	List<Plants> plantsList = new ArrayList<Plants>();
 	
 	@Override
@@ -36,6 +51,28 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		
 		context = this;
 		switched = false;
+		
+		plantIntent = this.getIntent();
+
+		if (plantIntent.hasExtra("annualLowAverage")) {
+			annualLowAverage = plantIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
+			annualHighAverage = plantIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
+			winterLowAverage = plantIntent.getDoubleExtra("winterLowAverage", winterLowAverage);
+			winterHighAverage = plantIntent.getDoubleExtra("winterHighAverage", winterHighAverage);
+			springLowAverage = plantIntent.getDoubleExtra("springLowAverage", springLowAverage);
+			springHighAverage = plantIntent.getDoubleExtra("springHighAverage", springHighAverage);
+			summerLowAverage = plantIntent.getDoubleExtra("summerLowAverage", summerLowAverage);
+			summerHighAverage = plantIntent.getDoubleExtra("summerHighAverage", summerHighAverage);
+			fallLowAverage = plantIntent.getDoubleExtra("fallLowAverage", fallLowAverage);
+			fallHighAverage = plantIntent.getDoubleExtra("fallHighAverage", fallHighAverage);
+		}
+
+		// Setup FragmentManager to call methods in FormFragment
+		fragMgr = getFragmentManager();
+		plantFrag = (PlantsFragment)fragMgr.findFragmentById(R.id.plantsFrag);
+		if(plantFrag == null) {
+			plantFrag = new AddContainerFragment();
+		}
 		
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -89,6 +126,16 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 //			switched = true;
 			if (switched == true) {
 				Intent fishIntent = new Intent(context, FishActivity.class);
+				fishIntent.putExtra("annualLowAverage", annualLowAverage);
+				fishIntent.putExtra("annualHighAverage", annualHighAverage);
+				fishIntent.putExtra("winterLowAverage", winterLowAverage);
+				fishIntent.putExtra("winterHighAverage", winterHighAverage);
+				fishIntent.putExtra("springLowAverage", springLowAverage);
+				fishIntent.putExtra("springHighAverage", springHighAverage);
+				fishIntent.putExtra("summerLowAverage", summerLowAverage);
+				fishIntent.putExtra("summerHighAverage", summerHighAverage);
+				fishIntent.putExtra("fallLowAverage", fallLowAverage);
+				fishIntent.putExtra("fallHighAverage", fallHighAverage);
 				startActivity(fishIntent);
 			}
 		}
@@ -196,5 +243,20 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		
 		Log.i(tag, item.toString());
 		return item;
+	}
+	
+	public ArrayList<Double> getTemps() {
+		ArrayList<Double> temps = new ArrayList<Double>();
+		temps.add(annualLowAverage);
+		temps.add(annualHighAverage);
+		temps.add(winterLowAverage);
+		temps.add(winterHighAverage);
+		temps.add(springLowAverage);
+		temps.add(springHighAverage);
+		temps.add(summerLowAverage);
+		temps.add(summerHighAverage);
+		temps.add(fallLowAverage);
+		temps.add(fallHighAverage);
+		return temps;
 	}
 }

@@ -48,7 +48,8 @@ public class MainFragment extends Fragment {
 		public void startContainerActivity(int pos);
 		public Double getTotalCapacity();
 		public Double getContainerCapacity(int pos);
-		public Double getCycleRate(Integer flow);
+//		public Double getCycleRate(Integer flow);
+		public Double getTotalBedCapacity();
 	}
 
 	@Override
@@ -83,6 +84,8 @@ public class MainFragment extends Fragment {
 		totalCapacity = (TextView) buildSystemView.findViewById(R.id.waterOutput);
 		cycleRate = (TextView) buildSystemView.findViewById(R.id.bedOutput);
 		linearLayout = (LinearLayout) buildSystemView.findViewById(R.id.linearLayout);
+		
+		linearLayout.getBackground().setAlpha(85);
 
 		linearLayout.setOnTouchListener(new OnTouchListener() {
 
@@ -103,10 +106,16 @@ public class MainFragment extends Fragment {
 			public void onFocusChange(View v, boolean hasFocus) {
 				// TODO Auto-generated method stub
 				if (!hasFocus) {
-					Integer flow = Integer.parseInt(flowInput.getText().toString());
-					Double rate = cap / flow;
-					String rateStr = String.format("%.1f", rate);
-					cycleRate.setText(rateStr + " Cycles");
+					if (!flowInput.getText().toString().matches("")) {
+						Double flow = Double.valueOf(flowInput.getText().toString());
+						if (!(mainActivity.getTotalBedCapacity() == 0.0)) {
+							Double rate = flow / mainActivity.getTotalBedCapacity();
+							String rateStr = String.format("%.1f", rate);
+							cycleRate.setText(rateStr + " Cycles");
+						} else {
+							cycleRate.setText("No Grow Beds");
+						}
+					}
 				}
 			}
 

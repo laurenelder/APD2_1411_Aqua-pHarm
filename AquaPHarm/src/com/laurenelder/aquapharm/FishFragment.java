@@ -128,9 +128,9 @@ public class FishFragment extends Fragment {
 		return fishView;
 	}
 
-	public static int getStringIdentifier(Context thisContext, String name) {
+/*	public static int getStringIdentifier(Context thisContext, String name) {
 		return thisContext.getResources().getIdentifier(name, "string", thisContext.getPackageName());
-	}
+	}*/
 
 	public void updateColors() {
 		ArrayList<Integer> temps = new ArrayList<Integer>();

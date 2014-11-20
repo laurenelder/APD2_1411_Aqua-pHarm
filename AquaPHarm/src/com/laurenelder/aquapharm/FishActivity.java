@@ -136,6 +136,16 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 		if (tabIndex == 2) {
 			if (switched == true) {
 				Intent plantsIntent = new Intent(context, PlantsActivity.class);
+				plantsIntent.putExtra("annualLowAverage", annualLowAverage);
+				plantsIntent.putExtra("annualHighAverage", annualHighAverage);
+				plantsIntent.putExtra("winterLowAverage", winterLowAverage);
+				plantsIntent.putExtra("winterHighAverage", winterHighAverage);
+				plantsIntent.putExtra("springLowAverage", springLowAverage);
+				plantsIntent.putExtra("springHighAverage", springHighAverage);
+				plantsIntent.putExtra("summerLowAverage", summerLowAverage);
+				plantsIntent.putExtra("summerHighAverage", summerHighAverage);
+				plantsIntent.putExtra("fallLowAverage", fallLowAverage);
+				plantsIntent.putExtra("fallHighAverage", fallHighAverage);
 				startActivity(plantsIntent);
 			}
 		}

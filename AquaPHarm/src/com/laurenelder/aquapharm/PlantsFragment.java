@@ -27,11 +27,18 @@ public class PlantsFragment extends Fragment {
 	Context context;
 	String tag = "PLANTS FRAGMENT";
 	ImageView plantPic;
+	ImageView annualTemp;
+	ImageView winterTemp;
+	ImageView springTemp;
+	ImageView summerTemp;
+	ImageView fallTemp;
 	TextView plantEdible;
+	int spinnerViewPosition = 0;
 	
 	// Interface to PlantsActivity methods
 			public interface OnSelected {
 				public ArrayList getData(int pos);
+				public ArrayList<Double> getTemps();
 			}
 			
 			private OnSelected parentActivity;
@@ -60,6 +67,11 @@ public class PlantsFragment extends Fragment {
 		context = getActivity();
 		
 		plantPic = (ImageView)plantsView.findViewById(R.id.plantImage);
+		annualTemp = (ImageView)plantsView.findViewById(R.id.plantOverallColor);
+		winterTemp = (ImageView)plantsView.findViewById(R.id.plantWinterColor);
+		springTemp = (ImageView)plantsView.findViewById(R.id.plantSpringColor);
+		summerTemp = (ImageView)plantsView.findViewById(R.id.plantSummerColor);
+		fallTemp = (ImageView)plantsView.findViewById(R.id.plantFallColor);
 		plantEdible = (TextView)plantsView.findViewById(R.id.plantEatable);
 		
 		Spinner plantsSpinner = (Spinner) plantsView.findViewById(R.id.plantSpinner);
@@ -117,6 +129,7 @@ public class PlantsFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
+				spinnerViewPosition = position;
 				
 				String imageName = parentActivity.getData(position).get(3).toString();
 				imageName = imageName.substring(0, imageName.length() - 4);
@@ -131,6 +144,8 @@ public class PlantsFragment extends Fragment {
 				} else {
 					plantEdible.setText("Uneatable");
 				}
+				
+				updateColors();
 			}
 
 			@Override
@@ -144,4 +159,109 @@ public class PlantsFragment extends Fragment {
 		return plantsView;
 	}
 
+	public void updateColors() {
+		ArrayList<Integer> temps = new ArrayList<Integer>();
+		for (int z = 0; z < 10; z++) {
+			Integer value = parentActivity.getTemps().get(z).intValue();
+			temps.add(value);
+			//		Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
+			//			Log.i(tag, value.toString());
+		}
+		Log.i(tag, parentActivity.getData(spinnerViewPosition).get(1).toString());
+		// Annual Field
+		if (temps.get(0) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(1) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			annualTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(0) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(1) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(0) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(1) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				annualTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(0) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(1) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			annualTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Winter Field
+		if (temps.get(2) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(3) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			winterTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(2) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(3) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(2) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(3) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				winterTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(2) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(3) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			winterTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Spring Field
+		if (temps.get(4) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(5) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			springTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(4) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(5) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(4) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(5) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				springTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(4) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(5) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			springTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Summer Field
+		if (temps.get(6) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(7) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			summerTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(6) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(7) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(6) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(7) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				summerTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(6) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(7) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			summerTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+		// Fall Field
+		if (temps.get(8) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 && 
+				temps.get(9) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+			fallTemp.setBackgroundResource(R.color.green);	
+			Log.i(tag, "Color should be green");
+		}
+		if (temps.get(8) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(9) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			if (temps.get(8) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 5 || 
+					temps.get(9) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 5) {
+				fallTemp.setBackgroundResource(R.color.yellow);	
+				Log.i(tag, "Color should be yellow");
+			}
+		}
+		if (temps.get(8) < Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(1).toString()) - 10 || 
+				temps.get(9) > Integer.parseInt(parentActivity.getData(spinnerViewPosition).get(2).toString()) + 10) {
+			fallTemp.setBackgroundResource(R.color.red);	
+			Log.i(tag, "Color should be red");
+		}
+	}
 }
