@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class FishFragment extends Fragment {
 
 	Context context;
 	String tag = "FISH FRAGMENT";
+	LinearLayout linearLayout;
 	ImageView fishPic;
 	ImageView annualTemp;
 	ImageView winterTemp;
@@ -33,7 +35,7 @@ public class FishFragment extends Fragment {
 
 	// Interface to FishActivity methods
 	public interface OnSelected {
-		public ArrayList getData(int pos);
+		public ArrayList<String> getData(int pos);
 		public ArrayList<Double> getTemps();
 	}
 
@@ -61,6 +63,7 @@ public class FishFragment extends Fragment {
 
 		context = getActivity();
 
+		// Get and set UI elements
 		fishPic = (ImageView)fishView.findViewById(R.id.fishImage);
 		annualTemp = (ImageView)fishView.findViewById(R.id.fishOverallColor);
 		winterTemp = (ImageView)fishView.findViewById(R.id.fishWinterColor);
@@ -68,7 +71,12 @@ public class FishFragment extends Fragment {
 		summerTemp = (ImageView)fishView.findViewById(R.id.fishSummerColor);
 		fallTemp = (ImageView)fishView.findViewById(R.id.fishFallColor);
 		fishEdible = (TextView)fishView.findViewById(R.id.fishEatable);
+		linearLayout = (LinearLayout) fishView.findViewById(R.id.linearLayout);
 
+		// Set background image transparency
+		linearLayout.getBackground().setAlpha(85);
+
+		// Set spinner adapter
 		Spinner fishSpinner = (Spinner) fishView.findViewById(R.id.fishSpinner);
 		List<String> fish = new ArrayList<String>();
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
@@ -93,6 +101,7 @@ public class FishFragment extends Fragment {
 
 		spinnerAdapter.notifyDataSetChanged();
 
+		// Update UI based on spinner selection
 		fishSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -122,23 +131,19 @@ public class FishFragment extends Fragment {
 				// TODO Auto-generated method stub
 
 			}
-
 		});
 
 		return fishView;
 	}
 
-/*	public static int getStringIdentifier(Context thisContext, String name) {
-		return thisContext.getResources().getIdentifier(name, "string", thisContext.getPackageName());
-	}*/
-
+	// updateColors method compensates for temperature shifts and sets the color icons respectively.
 	public void updateColors() {
 		ArrayList<Integer> temps = new ArrayList<Integer>();
 		for (int z = 0; z < 10; z++) {
 			Integer value = parentActivity.getTemps().get(z).intValue();
 			temps.add(value);
-			//		Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
-			//			Log.i(tag, value.toString());
+//		Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
+//		Log.i(tag, value.toString());
 		}
 		Log.i(tag, parentActivity.getData(spinnerViewPosition).get(1).toString());
 		// Annual Field

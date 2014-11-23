@@ -14,12 +14,12 @@ public class FileManager {
 
 	private static FileManager manager_instance;
 	String tag = "FILE MANAGER CLASS";
-	
+
 	// Constructor
 	private FileManager() {
-		
+
 	}
-	
+
 	// Return instance method
 	public static FileManager getInstance() {
 		if (manager_instance == null) {
@@ -27,12 +27,12 @@ public class FileManager {
 		}
 		return manager_instance;
 	}
-	
+
 	// Write contents to internal file
 	public Boolean writeToFile(Context context, String fileName, String fileContent) {
 		Boolean completion = false;
 		FileOutputStream outputStream = null;
-		
+
 		try {
 			outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 			outputStream.write(fileContent.getBytes());
@@ -48,18 +48,18 @@ public class FileManager {
 		}
 		return completion;
 	}
-	
-	
+
+
 	// Read contents of internal file... Contents are the parsed in the views activity
 	public String readFromFile(Context context, String fileName, InputStream input) {
 		String fileContent = "";
 		FileInputStream inputStream = null;
-		
+
 		try {
 			if (fileName != null) {
 				inputStream = context.openFileInput(fileName);
 			}
-			
+
 			BufferedInputStream bufferInput;
 			if (input != null) {
 				bufferInput = new BufferedInputStream(input);
@@ -83,7 +83,7 @@ public class FileManager {
 				if (inputStream != null) {
 					inputStream.close();
 				}
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				Log.e(tag, e.getMessage().toString());
@@ -92,5 +92,5 @@ public class FileManager {
 		}
 		return fileContent;
 	}
-	
+
 }

@@ -1,0 +1,179 @@
+package com.laurenelder.aquapharm;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+public class ContainerActivity extends Activity implements ContainerFragment.containerInterface {
+
+	String tag = "CONTAINER ACTIVITY";
+	Context context;
+	FragmentManager fragMgr;
+	Fragment containerFrag;
+	String ctype;
+	String clength;
+	String cwidth;
+	String cheight;
+	int cposition;
+	Intent thisIntent;
+	Intent finishedIntent;
+	Double annualLowAverage = 0.0;
+	Double annualHighAverage = 0.0;
+	Double winterLowAverage = 0.0;
+	Double winterHighAverage = 0.0;
+	Double springLowAverage = 0.0;
+	Double springHighAverage = 0.0;
+	Double summerLowAverage = 0.0;
+	Double summerHighAverage = 0.0;
+	Double fallLowAverage = 0.0;
+	Double fallHighAverage = 0.0;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.fragment_container);
+
+		// Setup FragmentManager to call methods in FormFragment
+		fragMgr = getFragmentManager();
+		containerFrag = (ContainerFragment)fragMgr.findFragmentById(R.id.containerFrag);
+		if(containerFrag == null) {
+			containerFrag = new ContainerFragment();
+		}
+
+		context = this;
+		thisIntent = this.getIntent();
+		ctype = thisIntent.getExtras().getString("type").toString();
+		clength = thisIntent.getExtras().getString("length").toString();
+		cwidth = thisIntent.getExtras().getString("width").toString();
+		cheight = thisIntent.getExtras().getString("height").toString();
+		cposition = thisIntent.getExtras().getInt("position");
+		
+		if (thisIntent.hasExtra("annualLowAverage")) {
+			annualLowAverage = thisIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
+			annualHighAverage = thisIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
+			winterLowAverage = thisIntent.getDoubleExtra("winterLowAverage", winterLowAverage);
+			winterHighAverage = thisIntent.getDoubleExtra("winterHighAverage", winterHighAverage);
+			springLowAverage = thisIntent.getDoubleExtra("springLowAverage", springLowAverage);
+			springHighAverage = thisIntent.getDoubleExtra("springHighAverage", springHighAverage);
+			summerLowAverage = thisIntent.getDoubleExtra("summerLowAverage", summerLowAverage);
+			summerHighAverage = thisIntent.getDoubleExtra("summerHighAverage", summerHighAverage);
+			fallLowAverage = thisIntent.getDoubleExtra("fallLowAverage", fallLowAverage);
+			fallHighAverage = thisIntent.getDoubleExtra("fallHighAverage", fallHighAverage);
+		}
+
+		Integer cuInches = Integer.parseInt(clength) * Integer.parseInt(cwidth) *
+				Integer.parseInt(cheight);
+		Log.i(tag, cuInches.toString());
+
+		Double cuFoot = cuInches / 1728.00;
+		//		Log.i(tag, cuFoot.toString());
+
+		Double gallons = 7.48 * cuFoot;
+
+		String gallonsStr =  String.format("%.1f", gallons);
+
+		((ContainerFragment) containerFrag).updateTextViews(ctype, clength, 
+				cwidth, cheight, gallonsStr);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		getMenuInflater().inflate(R.menu.main, menu);
+
+		menu.findItem(R.id.action_item_one).setEnabled(true).setVisible(true);
+
+		menu.findItem(R.id.action_item_one).setIcon(R.drawable.ic_action_edit);
+		menu.findItem(R.id.action_item_two).setIcon(R.drawable.ic_action_discard);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		int id = item.getItemId();
+
+
+		if (id == R.id.action_item_one) {
+			finishedIntent = new Intent();
+
+			finishedIntent.putExtra("type", ctype);
+			finishedIntent.putExtra("length", clength);
+			finishedIntent.putExtra("width", cwidth);
+			finishedIntent.putExtra("height", cheight);
+			finishedIntent.putExtra("button", "edit");
+			finishedIntent.putExtra("position", cposition);
+			finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+			finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+			finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+			finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+			finishedIntent.putExtra("springLowAverage", springLowAverage);
+			finishedIntent.putExtra("springHighAverage", springHighAverage);
+			finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+			finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+			finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+			finishedIntent.putExtra("fallHighAverage", fallHighAverage);
+			setResult(RESULT_OK, finishedIntent);
+			finish();
+			return true;
+		}
+		if (id == R.id.action_item_two) {
+			Toast.makeText(context, "Container Deleted!", Toast.LENGTH_SHORT).show();
+			finishedIntent = new Intent();
+			finishedIntent.putExtra("type", ctype);
+			finishedIntent.putExtra("length", clength);
+			finishedIntent.putExtra("width", cwidth);
+			finishedIntent.putExtra("height", cheight);
+			finishedIntent.putExtra("button", "delete");
+			finishedIntent.putExtra("position", cposition);
+			finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+			finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+			finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+			finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+			finishedIntent.putExtra("springLowAverage", springLowAverage);
+			finishedIntent.putExtra("springHighAverage", springHighAverage);
+			finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+			finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+			finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+			finishedIntent.putExtra("fallHighAverage", fallHighAverage);
+			setResult(RESULT_OK, finishedIntent);
+			finish();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		setResult(RESULT_CANCELED, finishedIntent);
+		finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+		finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+		finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+		finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+		finishedIntent.putExtra("springLowAverage", springLowAverage);
+		finishedIntent.putExtra("springHighAverage", springHighAverage);
+		finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+		finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+		finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+		finishedIntent.putExtra("fallHighAverage", fallHighAverage);
+		finish();
+
+		super.onBackPressed();
+	}
+}

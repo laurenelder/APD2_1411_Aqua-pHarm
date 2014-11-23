@@ -1,6 +1,5 @@
 package com.laurenelder.aquapharm;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +55,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 
 		fishIntent = this.getIntent();
 
+		// Get weather data that has passed through the Intent
 		if (fishIntent.hasExtra("annualLowAverage")) {
 			annualLowAverage = fishIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
 			annualHighAverage = fishIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
@@ -76,6 +76,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 			fishFrag = new AddContainerFragment();
 		}
 
+		// Add Action Bar tabs
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -99,7 +100,6 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 
 		menu.findItem(R.id.action_item_one).setEnabled(false).setVisible(false);
 
-		//        menu.findItem(R.id.action_item_one).setIcon(R.drawable.ic_action_new);
 		menu.findItem(R.id.action_item_two).setIcon(R.drawable.ic_action_about);
 
 		return true;
@@ -108,9 +108,17 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		int id = item.getItemId();
+		if (id == R.id.action_item_two) {
+			new AboutDialog();
+			AboutDialog dialogFrag = AboutDialog.newInstance(context);
+			dialogFrag.show(getFragmentManager(), "about_dialog");
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	// Pass weather data through Intents for the tab navigation
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
@@ -118,6 +126,16 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 		if (tabIndex == 0) {
 			if (switched == true) {
 				Intent buildIntent = new Intent(this, MainActivity.class);
+				buildIntent.putExtra("annualLowAverage", annualLowAverage);
+				buildIntent.putExtra("annualHighAverage", annualHighAverage);
+				buildIntent.putExtra("winterLowAverage", winterLowAverage);
+				buildIntent.putExtra("winterHighAverage", winterHighAverage);
+				buildIntent.putExtra("springLowAverage", springLowAverage);
+				buildIntent.putExtra("springHighAverage", springHighAverage);
+				buildIntent.putExtra("summerLowAverage", summerLowAverage);
+				buildIntent.putExtra("summerHighAverage", summerHighAverage);
+				buildIntent.putExtra("fallLowAverage", fallLowAverage);
+				buildIntent.putExtra("fallHighAverage", fallHighAverage);
 				startActivity(buildIntent);
 			}
 		}
@@ -169,6 +187,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 
 	}
 
+	// Check for Fish JSON file and parse if available
 	public boolean checkForFile() {
 		boolean fileAvailable = false;
 
@@ -207,7 +226,7 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 				String fishMaxTemp = fishObject.getString("maxtemp");
 				String fishImage = fishObject.getString("image");
 				String fishEdible = fishObject.getString("edible");
-				/*				Log.i(tag, fishName);
+/*				Log.i(tag, fishName);
 				Log.i(tag, fishMinTemp);
 				Log.i(tag, fishMaxTemp);
 				Log.i(tag, fishImage);*/
@@ -230,13 +249,13 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 
 	// Save Parsed Data to Class
 	public void setClass(String name, Integer minTemp, Integer maxTemp, String image,String edible) {
-//		Log.i(tag, "setClass hit");
+		//		Log.i(tag, "setClass hit");
 		Fish newFish = new Fish(name, minTemp, maxTemp, image, edible);
 		fishList.add(newFish);
 	}
 
 	@Override
-	public ArrayList getData(int pos) {
+	public ArrayList<String> getData(int pos) {
 		// TODO Auto-generated method stub
 		ArrayList<String> item = new ArrayList<String>();
 		item.add(fishList.get(pos).name);
@@ -245,10 +264,11 @@ public class FishActivity extends Activity implements TabListener, FishFragment.
 		item.add(fishList.get(pos).image);
 		item.add(fishList.get(pos).edible);
 //		Log.i(tag, item.toString());
-		
+
 		return item;
 	}
-	
+
+	// getTemps passes weather data to FishFragment
 	public ArrayList<Double> getTemps() {
 		ArrayList<Double> temps = new ArrayList<Double>();
 		temps.add(annualLowAverage);

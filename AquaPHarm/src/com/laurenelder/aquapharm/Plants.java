@@ -7,7 +7,7 @@ public class Plants {
 	public Integer maxTemp;
 	public String image;
 	public String edible;
-	
+
 	public Plants(String plantName, Integer minPlantTemp, Integer maxPlantTemp, 
 			String plantImage, String plantEdible) {
 		this.name = plantName;
@@ -16,9 +16,9 @@ public class Plants {
 		this.image = plantImage;
 		this.edible = plantEdible;
 	}
-	
+
 	public String toString() {
 		return name;
 	}
-	
+
 }

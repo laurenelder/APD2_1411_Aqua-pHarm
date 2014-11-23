@@ -6,7 +6,7 @@ public class Containers {
 	public String length;
 	public String width;
 	public String height;
-	
+
 	public Containers(String containerType, String containerLength, String containerWidth, 
 			String containerHeight) {
 		this.type = containerType;
@@ -14,9 +14,9 @@ public class Containers {
 		this.width = containerWidth;
 		this.height = containerHeight;
 	}
-	
+
 	public String toString() {
 		return type;
 	}
-	
+
 }

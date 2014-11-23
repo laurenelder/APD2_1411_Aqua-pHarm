@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class AddContainerActivity extends Activity {
 
@@ -29,6 +30,16 @@ public class AddContainerActivity extends Activity {
 	Intent finishedIntent = new Intent();
 	boolean save = false;
 	boolean edit = false;
+	Double annualLowAverage = 0.0;
+	Double annualHighAverage = 0.0;
+	Double winterLowAverage = 0.0;
+	Double winterHighAverage = 0.0;
+	Double springLowAverage = 0.0;
+	Double springHighAverage = 0.0;
+	Double summerLowAverage = 0.0;
+	Double summerHighAverage = 0.0;
+	Double fallLowAverage = 0.0;
+	Double fallHighAverage = 0.0;
 	List <Containers> containerList = new ArrayList<Containers>();
 
 	@Override
@@ -39,6 +50,20 @@ public class AddContainerActivity extends Activity {
 
 		context = this;
 		thisIntent = this.getIntent();
+		
+		// Get weather data if available
+		if (thisIntent.hasExtra("annualLowAverage")) {
+			annualLowAverage = thisIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
+			annualHighAverage = thisIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
+			winterLowAverage = thisIntent.getDoubleExtra("winterLowAverage", winterLowAverage);
+			winterHighAverage = thisIntent.getDoubleExtra("winterHighAverage", winterHighAverage);
+			springLowAverage = thisIntent.getDoubleExtra("springLowAverage", springLowAverage);
+			springHighAverage = thisIntent.getDoubleExtra("springHighAverage", springHighAverage);
+			summerLowAverage = thisIntent.getDoubleExtra("summerLowAverage", summerLowAverage);
+			summerHighAverage = thisIntent.getDoubleExtra("summerHighAverage", summerHighAverage);
+			fallLowAverage = thisIntent.getDoubleExtra("fallLowAverage", fallLowAverage);
+			fallHighAverage = thisIntent.getDoubleExtra("fallHighAverage", fallHighAverage);
+		}
 
 		// Setup FragmentManager to call methods in FormFragment
 		fragMgr = getFragmentManager();
@@ -78,10 +103,8 @@ public class AddContainerActivity extends Activity {
 		// TODO Auto-generated method stub
 		getMenuInflater().inflate(R.menu.main, menu);
 
-		//       menu.findItem(R.id.action_about).s
 		menu.findItem(R.id.action_item_one).setEnabled(false).setVisible(false);
 
-		//       menu.findItem(R.id.action_item_one).setIcon(R.drawable.ic_action_new);
 		menu.findItem(R.id.action_item_two).setIcon(R.drawable.ic_action_accept);
 
 		return true;
@@ -91,6 +114,8 @@ public class AddContainerActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
+		
+		// Check if data is present in fields then save the data to the device.
 		if (id == R.id.action_item_two) {
 			ArrayList<String> fieldInfo = new ArrayList<String>();
 			fieldInfo = ((AddContainerFragment) AddContainerFrag).getDataFields();
@@ -99,6 +124,7 @@ public class AddContainerActivity extends Activity {
 						fieldInfo.get(1).toString(), 
 						fieldInfo.get(2).toString(), 
 						fieldInfo.get(3).toString())) {
+					Toast.makeText(context, "Container Saved!", Toast.LENGTH_SHORT).show();
 					saveData();
 				}
 			}
@@ -112,6 +138,16 @@ public class AddContainerActivity extends Activity {
 		// TODO Auto-generated method stub
 
 		setResult(RESULT_CANCELED, finishedIntent);
+		finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+		finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+		finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+		finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+		finishedIntent.putExtra("springLowAverage", springLowAverage);
+		finishedIntent.putExtra("springHighAverage", springHighAverage);
+		finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+		finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+		finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+		finishedIntent.putExtra("fallHighAverage", fallHighAverage);
 		finish();
 
 		super.onBackPressed();
@@ -216,6 +252,16 @@ public class AddContainerActivity extends Activity {
 		Log.i(tag, fullJson);
 		fileManager.writeToFile(context, getResources().getString(R.string.container_file_name), fullJson);
 		setResult(RESULT_OK, finishedIntent);
+		finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+		finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+		finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+		finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+		finishedIntent.putExtra("springLowAverage", springLowAverage);
+		finishedIntent.putExtra("springHighAverage", springHighAverage);
+		finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+		finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+		finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+		finishedIntent.putExtra("fallHighAverage", fallHighAverage);
 		finish();
 	}
 }

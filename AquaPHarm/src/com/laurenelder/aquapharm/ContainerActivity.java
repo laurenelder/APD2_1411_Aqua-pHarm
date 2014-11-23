@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class ContainerActivity extends Activity implements ContainerFragment.containerInterface {
 
@@ -23,6 +24,16 @@ public class ContainerActivity extends Activity implements ContainerFragment.con
 	int cposition;
 	Intent thisIntent;
 	Intent finishedIntent;
+	Double annualLowAverage = 0.0;
+	Double annualHighAverage = 0.0;
+	Double winterLowAverage = 0.0;
+	Double winterHighAverage = 0.0;
+	Double springLowAverage = 0.0;
+	Double springHighAverage = 0.0;
+	Double summerLowAverage = 0.0;
+	Double summerHighAverage = 0.0;
+	Double fallLowAverage = 0.0;
+	Double fallHighAverage = 0.0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +48,35 @@ public class ContainerActivity extends Activity implements ContainerFragment.con
 			containerFrag = new ContainerFragment();
 		}
 
+		// Get extras if data is available
+		context = this;
 		thisIntent = this.getIntent();
 		ctype = thisIntent.getExtras().getString("type").toString();
 		clength = thisIntent.getExtras().getString("length").toString();
 		cwidth = thisIntent.getExtras().getString("width").toString();
 		cheight = thisIntent.getExtras().getString("height").toString();
 		cposition = thisIntent.getExtras().getInt("position");
+		
+		if (thisIntent.hasExtra("annualLowAverage")) {
+			annualLowAverage = thisIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
+			annualHighAverage = thisIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
+			winterLowAverage = thisIntent.getDoubleExtra("winterLowAverage", winterLowAverage);
+			winterHighAverage = thisIntent.getDoubleExtra("winterHighAverage", winterHighAverage);
+			springLowAverage = thisIntent.getDoubleExtra("springLowAverage", springLowAverage);
+			springHighAverage = thisIntent.getDoubleExtra("springHighAverage", springHighAverage);
+			summerLowAverage = thisIntent.getDoubleExtra("summerLowAverage", summerLowAverage);
+			summerHighAverage = thisIntent.getDoubleExtra("summerHighAverage", summerHighAverage);
+			fallLowAverage = thisIntent.getDoubleExtra("fallLowAverage", fallLowAverage);
+			fallHighAverage = thisIntent.getDoubleExtra("fallHighAverage", fallHighAverage);
+		}
 
+		// Update UI TextViews with data that has been passed from previous activity.
 		Integer cuInches = Integer.parseInt(clength) * Integer.parseInt(cwidth) *
 				Integer.parseInt(cheight);
 		Log.i(tag, cuInches.toString());
 
 		Double cuFoot = cuInches / 1728.00;
-		//		Log.i(tag, cuFoot.toString());
+//		Log.i(tag, cuFoot.toString());
 
 		Double gallons = 7.48 * cuFoot;
 
@@ -77,29 +104,48 @@ public class ContainerActivity extends Activity implements ContainerFragment.con
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
 
-
+		// Pass data back to MainActivity for either deleted or editing containers.
 		if (id == R.id.action_item_one) {
 			finishedIntent = new Intent();
-
 			finishedIntent.putExtra("type", ctype);
 			finishedIntent.putExtra("length", clength);
 			finishedIntent.putExtra("width", cwidth);
 			finishedIntent.putExtra("height", cheight);
 			finishedIntent.putExtra("button", "edit");
 			finishedIntent.putExtra("position", cposition);
+			finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+			finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+			finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+			finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+			finishedIntent.putExtra("springLowAverage", springLowAverage);
+			finishedIntent.putExtra("springHighAverage", springHighAverage);
+			finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+			finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+			finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+			finishedIntent.putExtra("fallHighAverage", fallHighAverage);
 			setResult(RESULT_OK, finishedIntent);
 			finish();
 			return true;
 		}
 		if (id == R.id.action_item_two) {
+			Toast.makeText(context, "Container Deleted!", Toast.LENGTH_SHORT).show();
 			finishedIntent = new Intent();
-
 			finishedIntent.putExtra("type", ctype);
 			finishedIntent.putExtra("length", clength);
 			finishedIntent.putExtra("width", cwidth);
 			finishedIntent.putExtra("height", cheight);
 			finishedIntent.putExtra("button", "delete");
 			finishedIntent.putExtra("position", cposition);
+			finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+			finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+			finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+			finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+			finishedIntent.putExtra("springLowAverage", springLowAverage);
+			finishedIntent.putExtra("springHighAverage", springHighAverage);
+			finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+			finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+			finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+			finishedIntent.putExtra("fallHighAverage", fallHighAverage);
 			setResult(RESULT_OK, finishedIntent);
 			finish();
 			return true;
@@ -107,5 +153,24 @@ public class ContainerActivity extends Activity implements ContainerFragment.con
 
 		return super.onOptionsItemSelected(item);
 	}
+	
+	// Pass data back when the back button is pressed.
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		setResult(RESULT_CANCELED, finishedIntent);
+		finishedIntent.putExtra("annualLowAverage", annualLowAverage);
+		finishedIntent.putExtra("annualHighAverage", annualHighAverage);
+		finishedIntent.putExtra("winterLowAverage", winterLowAverage);
+		finishedIntent.putExtra("winterHighAverage", winterHighAverage);
+		finishedIntent.putExtra("springLowAverage", springLowAverage);
+		finishedIntent.putExtra("springHighAverage", springHighAverage);
+		finishedIntent.putExtra("summerLowAverage", summerLowAverage);
+		finishedIntent.putExtra("summerHighAverage", summerHighAverage);
+		finishedIntent.putExtra("fallLowAverage", fallLowAverage);
+		finishedIntent.putExtra("fallHighAverage", fallHighAverage);
+		finish();
 
+		super.onBackPressed();
+	}
 }

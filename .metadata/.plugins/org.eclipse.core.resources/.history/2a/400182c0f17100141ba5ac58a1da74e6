@@ -1,0 +1,60 @@
+package com.laurenelder.aquapharm;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+public class DeleteDialog extends DialogFragment {
+	
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+		final LayoutInflater dialogInflater = getActivity().getLayoutInflater();
+		
+		View deleteView = dialogInflater.inflate(R.layout.about_dialog, null);
+		
+		
+		TextView deleteText = (TextView)deleteView.findViewById(R.id.dialogText);
+		deleteText.setText("Are you sure you want to delete this container?");
+		
+		alertDialogBuilder.setView(deleteView);
+		alertDialogBuilder.setPositiveButton("OK", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+
+		});
+		
+		alertDialogBuilder.setNegativeButton("Cancel", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+			
+		});
+
+		return alertDialogBuilder.create();
+//		return super.onCreateDialog(savedInstanceState);
+	}
+	static Context context;
+	// Establish Instance of AlertDialogFragmentClass
+		static AboutDialog newInstance(Context appContext) {
+			context = appContext;
+			return new AboutDialog();
+	}
+
+}

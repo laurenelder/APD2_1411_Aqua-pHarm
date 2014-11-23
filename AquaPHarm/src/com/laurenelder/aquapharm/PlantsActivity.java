@@ -22,7 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class PlantsActivity extends Activity implements TabListener, PlantsFragment.OnSelected {
-	
+
 	Context context;
 	String tag = "PlantsActivity";
 	FileManager fileManager;
@@ -42,18 +42,19 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	Double fallLowAverage = 0.0;
 	Double fallHighAverage = 0.0;
 	List<Plants> plantsList = new ArrayList<Plants>();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_plants);
-		
+
 		context = this;
 		switched = false;
-		
+
 		plantIntent = this.getIntent();
 
+		// Get weather data that has passed through the Intent
 		if (plantIntent.hasExtra("annualLowAverage")) {
 			annualLowAverage = plantIntent.getDoubleExtra("annualLowAverage", annualLowAverage);
 			annualHighAverage = plantIntent.getDoubleExtra("annualHighAverage", annualHighAverage);
@@ -73,45 +74,52 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		if(plantFrag == null) {
 			plantFrag = new AddContainerFragment();
 		}
-		
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        
-        Tab actionBarTab = actionBar.newTab();
-        actionBarTab.setText(R.string.actionbar_buildsystem).setTabListener(this);
-        actionBar.addTab(actionBarTab);
-        actionBarTab = actionBar.newTab();
-        actionBarTab.setText(R.string.actionbar_fish).setTabListener(this);
-        actionBar.addTab(actionBarTab);
-        actionBarTab = actionBar.newTab();
-        actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
-        actionBar.addTab(actionBarTab);
-        
-        actionBar.setSelectedNavigationItem(2);
-        
-        
+
+		// Add Action Bar tabs
+		ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		Tab actionBarTab = actionBar.newTab();
+		actionBarTab.setText(R.string.actionbar_buildsystem).setTabListener(this);
+		actionBar.addTab(actionBarTab);
+		actionBarTab = actionBar.newTab();
+		actionBarTab.setText(R.string.actionbar_fish).setTabListener(this);
+		actionBar.addTab(actionBarTab);
+		actionBarTab = actionBar.newTab();
+		actionBarTab.setText(R.string.actionbar_plants).setTabListener(this);
+		actionBar.addTab(actionBarTab);
+
+		actionBar.setSelectedNavigationItem(2);
+
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-        getMenuInflater().inflate(R.menu.main, menu);
-        
- //       menu.findItem(R.id.action_about).s
-        menu.findItem(R.id.action_item_one).setEnabled(false).setVisible(false);
-        
-//        menu.findItem(R.id.action_item_one).setIcon(R.drawable.ic_action_new);
-        menu.findItem(R.id.action_item_two).setIcon(R.drawable.ic_action_about);
-        
-        return true;
+		getMenuInflater().inflate(R.menu.main, menu);
+
+		menu.findItem(R.id.action_item_one).setEnabled(false).setVisible(false);
+
+		menu.findItem(R.id.action_item_two).setIcon(R.drawable.ic_action_about);
+
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		int id = item.getItemId();
+		if (id == R.id.action_item_two) {
+			new AboutDialog();
+			AboutDialog dialogFrag = AboutDialog.newInstance(context);
+			dialogFrag.show(getFragmentManager(), "about_dialog");
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	// Pass weather data through Intents for the tab navigation
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
@@ -119,11 +127,21 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		if (tabIndex == 0) {
 			if (switched == true) {
 				Intent buildIntent = new Intent(context, MainActivity.class);
+				buildIntent.putExtra("annualLowAverage", annualLowAverage);
+				buildIntent.putExtra("annualHighAverage", annualHighAverage);
+				buildIntent.putExtra("winterLowAverage", winterLowAverage);
+				buildIntent.putExtra("winterHighAverage", winterHighAverage);
+				buildIntent.putExtra("springLowAverage", springLowAverage);
+				buildIntent.putExtra("springHighAverage", springHighAverage);
+				buildIntent.putExtra("summerLowAverage", summerLowAverage);
+				buildIntent.putExtra("summerHighAverage", summerHighAverage);
+				buildIntent.putExtra("fallLowAverage", fallLowAverage);
+				buildIntent.putExtra("fallHighAverage", fallHighAverage);
 				startActivity(buildIntent);
 			}
 		}
 		if (tabIndex == 1) {
-//			switched = true;
+			//			switched = true;
 			if (switched == true) {
 				Intent fishIntent = new Intent(context, FishActivity.class);
 				fishIntent.putExtra("annualLowAverage", annualLowAverage);
@@ -156,29 +174,30 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	public boolean checkForFile() {
-		boolean fileAvailable = false;
-    	
-			Log.i(tag, "CheckForFile hit");
-        	String fileContent = fileManager.readFromFile(context, null, getResources().openRawResource(R.raw.plants));
-        	Log.i(tag, "File Check is Running");
-        	if (!fileContent.isEmpty()) {
-        		parseData(fileContent.toString());
-        		fileAvailable = true;
-        	}
-        return fileAvailable;
+
 	}
 
-	// Get and Parse JSON Function... (fishData = Raw JSON code)
+	// Check for Fish JSON file and parse if available
+	public boolean checkForFile() {
+		boolean fileAvailable = false;
+
+		Log.i(tag, "CheckForFile hit");
+		String fileContent = fileManager.readFromFile(context, null, getResources().openRawResource(R.raw.plants));
+		Log.i(tag, "File Check is Running");
+		if (!fileContent.isEmpty()) {
+			parseData(fileContent.toString());
+			fileAvailable = true;
+		}
+		return fileAvailable;
+	}
+
+	// Get and Parse JSON Function... (plantData = Raw JSON code)
 	public Boolean parseData(String plantData) {
 
 		Log.i(tag, "parseData hit");
@@ -203,7 +222,7 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 				String plantMaxTemp = plantObject.getString("maxtemp");
 				String plantImage = plantObject.getString("image");
 				String plantEdible = plantObject.getString("edible");
-/*				Log.i(tag, plantName);
+				/*				Log.i(tag, plantName);
 				Log.i(tag, plantMinTemp);
 				Log.i(tag, plantMaxTemp);
 				Log.i(tag, plantImage);*/
@@ -228,11 +247,11 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 	public void setClass(String name, Integer minTemp, Integer maxTemp, String image, String edible) {
 		Log.i(tag, "setClass hit");
 		Plants newPlant = new Plants(name, minTemp, maxTemp, image, edible);
-			plantsList.add(newPlant);
+		plantsList.add(newPlant);
 	}
 
 	@Override
-	public ArrayList getData(int pos) {
+	public ArrayList<String> getData(int pos) {
 		// TODO Auto-generated method stub
 		ArrayList<String> item = new ArrayList<String>();
 		item.add(plantsList.get(pos).name);
@@ -240,11 +259,12 @@ public class PlantsActivity extends Activity implements TabListener, PlantsFragm
 		item.add(plantsList.get(pos).maxTemp.toString());
 		item.add(plantsList.get(pos).image);
 		item.add(plantsList.get(pos).edible);
-		
+
 		Log.i(tag, item.toString());
 		return item;
 	}
-	
+
+	// getTemps passes weather data to FishFragment
 	public ArrayList<Double> getTemps() {
 		ArrayList<Double> temps = new ArrayList<Double>();
 		temps.add(annualLowAverage);

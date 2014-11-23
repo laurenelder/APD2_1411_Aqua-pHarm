@@ -6,10 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -48,7 +45,6 @@ public class MainFragment extends Fragment {
 		public void startContainerActivity(int pos);
 		public Double getTotalCapacity();
 		public Double getContainerCapacity(int pos);
-//		public Double getCycleRate(Integer flow);
 		public Double getTotalBedCapacity();
 	}
 
@@ -79,12 +75,14 @@ public class MainFragment extends Fragment {
 		sumpTankNum = 0;
 		growBedNum = 0;
 
+		// Get and set UI elements
 		containerListView = (ListView) buildSystemView.findViewById(R.id.list);
 		flowInput = (EditText) buildSystemView.findViewById(R.id.waterInput);
 		totalCapacity = (TextView) buildSystemView.findViewById(R.id.waterOutput);
 		cycleRate = (TextView) buildSystemView.findViewById(R.id.bedOutput);
 		linearLayout = (LinearLayout) buildSystemView.findViewById(R.id.linearLayout);
 		
+		// Set background image transparency
 		linearLayout.getBackground().setAlpha(85);
 
 		linearLayout.setOnTouchListener(new OnTouchListener() {
@@ -100,6 +98,7 @@ public class MainFragment extends Fragment {
 
 		});
 
+		// OnFocusChange update TextViews if EditText is not empty
 		flowInput.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -137,10 +136,10 @@ public class MainFragment extends Fragment {
 
 		});
 
-
 		return buildSystemView;
 	}
 
+	// addData method syncs container data with data located in the MainActivity
 	public void addData(String type, String length, String width, String height) {
 		String adjustedType = null;
 		if (type.matches("Fish Tank")) {
@@ -161,6 +160,7 @@ public class MainFragment extends Fragment {
 		Log.i(tag, newContainer.toString());
 	}
 
+	// updateListView method updates the ListView with the latest container data
 	public void updateListView() {
 		listAdapter.notifyDataSetChanged();
 		cap = mainActivity.getTotalCapacity();
@@ -168,6 +168,7 @@ public class MainFragment extends Fragment {
 		totalCapacity.setText(capStr + " Gallons");
 	}
 
+	// clearList is also used to keep data between the MainActivity and MainFragment synced.
 	public void clearList() {
 		if (!containerList.isEmpty()) {
 			fishTankNum = 0;

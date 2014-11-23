@@ -3,28 +3,26 @@ package com.laurenelder.aquapharm;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.laurenelder.aquapharm.FishFragment.OnSelected;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
 
 public class PlantsFragment extends Fragment {
-	
+
 	Context context;
+	LinearLayout linearLayout;
 	String tag = "PLANTS FRAGMENT";
 	ImageView plantPic;
 	ImageView annualTemp;
@@ -34,38 +32,39 @@ public class PlantsFragment extends Fragment {
 	ImageView fallTemp;
 	TextView plantEdible;
 	int spinnerViewPosition = 0;
-	
+
 	// Interface to PlantsActivity methods
-			public interface OnSelected {
-				public ArrayList getData(int pos);
-				public ArrayList<Double> getTemps();
-			}
-			
-			private OnSelected parentActivity;
+	public interface OnSelected {
+		public ArrayList<String> getData(int pos);
+		public ArrayList<Double> getTemps();
+	}
 
-			@Override
-			public void onAttach(Activity activity) {
-				// TODO Auto-generated method stub
-				super.onAttach(activity);
-				context = getActivity();
-				
-				if(activity instanceof OnSelected) {
-					parentActivity = (OnSelected) activity;
+	private OnSelected parentActivity;
 
-				} else {
-					throw new ClassCastException((activity.toString()) + "Did not impliment onSelected interface");
-				}
-			}
-	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		context = getActivity();
+
+		if(activity instanceof OnSelected) {
+			parentActivity = (OnSelected) activity;
+
+		} else {
+			throw new ClassCastException((activity.toString()) + "Did not impliment onSelected interface");
+		}
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		
+
 		View plantsView = inflater.inflate(R.layout.activity_plants, container);
-		
+
 		context = getActivity();
-		
+
+		// Get and set UI elements
 		plantPic = (ImageView)plantsView.findViewById(R.id.plantImage);
 		annualTemp = (ImageView)plantsView.findViewById(R.id.plantOverallColor);
 		winterTemp = (ImageView)plantsView.findViewById(R.id.plantWinterColor);
@@ -73,14 +72,19 @@ public class PlantsFragment extends Fragment {
 		summerTemp = (ImageView)plantsView.findViewById(R.id.plantSummerColor);
 		fallTemp = (ImageView)plantsView.findViewById(R.id.plantFallColor);
 		plantEdible = (TextView)plantsView.findViewById(R.id.plantEatable);
-		
+		linearLayout = (LinearLayout) plantsView.findViewById(R.id.linearLayout);
+
+		// Set background image transparency
+		linearLayout.getBackground().setAlpha(85);
+
+		// Set spinner adapter
 		Spinner plantsSpinner = (Spinner) plantsView.findViewById(R.id.plantSpinner);
 		List<String> plants = new ArrayList<String>();
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
 				android.R.layout.simple_spinner_item, plants);
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		plantsSpinner.setAdapter(spinnerAdapter);
-		
+
 		plants.add("Angel Face");
 		plants.add("Azaleas");
 		plants.add("Bell Peppers");
@@ -122,7 +126,8 @@ public class PlantsFragment extends Fragment {
 		plants.add("Watermelon");
 
 		spinnerAdapter.notifyDataSetChanged();
-		
+
+		// Update UI elements based on spinner selection
 		plantsSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -130,42 +135,42 @@ public class PlantsFragment extends Fragment {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				spinnerViewPosition = position;
-				
+
 				String imageName = parentActivity.getData(position).get(3).toString();
 				imageName = imageName.substring(0, imageName.length() - 4);
 				Log.i(tag, imageName);
-				
+
 				int resID = getResources().getIdentifier(imageName, "raw", "com.laurenelder.aquapharm");
-				
+
 				plantPic.setImageResource(resID);
-				
+
 				if (parentActivity.getData(position).get(4).toString().matches("yes")) {
 					plantEdible.setText("Edible");
 				} else {
 					plantEdible.setText("Uneatable");
 				}
-				
+
 				updateColors();
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
 		});
-		
+
 		return plantsView;
 	}
 
+	// updateColors method compensates for temperature shifts and sets the color icons respectively.
 	public void updateColors() {
 		ArrayList<Integer> temps = new ArrayList<Integer>();
 		for (int z = 0; z < 10; z++) {
 			Integer value = parentActivity.getTemps().get(z).intValue();
 			temps.add(value);
-			//		Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
-			//			Log.i(tag, value.toString());
+//		Log.i(tag, String.valueOf(parentActivity.getTemps().get(z)));
+//		Log.i(tag, value.toString());
 		}
 		Log.i(tag, parentActivity.getData(spinnerViewPosition).get(1).toString());
 		// Annual Field

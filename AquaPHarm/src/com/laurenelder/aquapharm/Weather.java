@@ -8,7 +8,7 @@ public class Weather {
 	public String year;
 	public String lowTemp;
 	public String highTemp;
-	
+
 	public Weather(String thisLocation, String thisDay, String thisMonth, String thisYear, 
 			String thisLowTemp, String thisHighTemp) {
 		this.location = thisLocation;
@@ -18,9 +18,9 @@ public class Weather {
 		this.lowTemp = thisLowTemp;
 		this.highTemp = thisHighTemp;
 	}
-	
+
 	public String toString() {
 		return location + ": " + month + "/" + day + "/" + year;
 	}
-	
+
 }

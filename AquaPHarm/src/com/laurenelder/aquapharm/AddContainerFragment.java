@@ -13,12 +13,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class AddContainerFragment extends Fragment {
 	
 	Context context;
+	LinearLayout linearLayout;
 	Spinner addContainerSpinner;
 	String containerType = null;
 	EditText length;
@@ -34,10 +36,15 @@ public class AddContainerFragment extends Fragment {
 		
 		context = getActivity();
 		
+		// Get and set UI elements
 		addContainerSpinner = (Spinner) addContainerView.findViewById(R.id.containerSpinner);
 		length = (EditText) addContainerView.findViewById(R.id.containerLength);
 		width = (EditText) addContainerView.findViewById(R.id.containerWidth);
 		height = (EditText) addContainerView.findViewById(R.id.containerHeight);
+		linearLayout = (LinearLayout) addContainerView.findViewById(R.id.linearLayout);
+		
+		// Set background image transparency
+		linearLayout.getBackground().setAlpha(85);
 		
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
 				android.R.layout.simple_spinner_item, containerTypes);
@@ -70,6 +77,7 @@ public class AddContainerFragment extends Fragment {
 		return addContainerView;
 	}
 	
+	// getDataFields retrieves data from input fields and returns the data to parent activity.
 	public ArrayList<String> getDataFields() {
 		if (containerType != null && 
 				!length.getText().toString().matches("") &&
@@ -90,6 +98,8 @@ public class AddContainerFragment extends Fragment {
 		}
 	}
 	
+	// updateFields is called when a container is being editted. 
+	//	This method inputs stored data into the input fields.
 	public void updateFields(String defaultType, String defaultLength, 
 			String defaultWidth, String defaultHeight) {
 		
